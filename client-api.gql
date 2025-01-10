@@ -63,11 +63,11 @@ enum UnitEnum {
 type Reservation {
   id: String!
   code: String!
-  count: Float
   createdAt: DateTime!
   status: ReservationStatusEnum!
   account: Account!
-  product: Product!
+  productUsageDetails: JSON
+  products: [Product!]!
 }
 
 """Different types of reservation status enums"""
@@ -76,6 +76,11 @@ enum ReservationStatusEnum {
   ACCEPTED
   REJECTED
 }
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 type Product {
   id: String!
@@ -91,6 +96,7 @@ type Product {
   status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  reservations: [Reservation!]!
 }
 
 type Account {
@@ -130,13 +136,12 @@ type PaginatedProducts {
   meta: PaginationMeta!
 }
 
-type PaginatedReservations {
-  items: [Reservation!]!
-  meta: PaginationMeta!
+input ProductToReserve {
+  id: String!
+  count: Float!
 }
 
 type Query {
-  reservations(productId: String!, page: Float!, limit: Float!): PaginatedReservations!
   products(page: Float!, limit: Float!, filter: CreateProductFilterInput): PaginatedProducts!
   categories: [Category!]!
 }
@@ -161,17 +166,16 @@ input CreateProductFilterInput {
 }
 
 type Mutation {
-  createProductReservationRequest(input: ReserveProductTaskPayload!): String!
+  createProductReservationRequest(input: InputCreateProductsReservaton!): String!
   addProduct(input: CreateProductInput!): Product!
   createAccount(input: CreateAccountInput!): Account!
   createCategory(input: CreateCategoryInput!): Product!
   createUnit(input: CreateUnitInput!): Unit!
 }
 
-input ReserveProductTaskPayload {
-  productId: String!
+input InputCreateProductsReservaton {
+  products: [ProductToReserve!]!
   accountId: String!
-  count: Int!
 }
 
 input CreateProductInput {

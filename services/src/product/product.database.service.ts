@@ -4,7 +4,12 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOneOptions, FindOptionsWhere, Repository } from 'typeorm';
+import {
+  FindManyOptions,
+  FindOneOptions,
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
 import { Product } from '../entities/product.entity';
 import { CreateProductInput } from './product.database.service.interface';
 
@@ -24,6 +29,18 @@ export class ProductDatabaseService {
 
   private defaultProductImage() {
     return 'product_image.png';
+  }
+
+  async products(options: FindManyOptions<Product>) {
+    try {
+      const products = await this.productRepository.find(options);
+      this.logger.debug('products:', products);
+
+      return products;
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException('error:');
+    }
   }
 
   async paginate(

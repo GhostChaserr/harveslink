@@ -1,10 +1,9 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
 import {
-  PaginatedReservations,
+  InputCreateProductsReservaton,
   ReservationsService,
   ReservationsTasksService,
-  ReserveProductTaskPayload,
 } from 'services';
 
 @Resolver()
@@ -16,23 +15,16 @@ export class ReservationsResolver {
 
   @Mutation(() => String, { name: 'createProductReservationRequest' })
   async create(
-    @Args('input') input: ReserveProductTaskPayload
+    @Args('input') input: InputCreateProductsReservaton
   ): Promise<string> {
-    const reservation = await this.reservationService.create(
-      input.productId,
-      input.accountId,
-      input.count
-    );
-    input.reservationId = reservation.id;
-    return this.taskService.create(input);
-  }
+    // case. create reservation request record with pending status
+    const reservation = await this.reservationService.create(input);
 
-  @Query(() => PaginatedReservations)
-  async reservations(
-    @Args('productId') productId: string,
-    @Args('page') page: number,
-    @Args('limit') limit: number
-  ) {
-    return this.reservationService.productReservations(page, limit, productId);
+    // case. push a task to decrease a stock
+    return this.taskService.create({
+      products: input.products,
+      reservationId: reservation.id,
+      accountId: input.accountId,
+    });
   }
 }

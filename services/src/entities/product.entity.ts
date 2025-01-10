@@ -5,7 +5,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToMany,
 } from 'typeorm';
 import { ObjectType, Field, Float } from '@nestjs/graphql';
 import { ListingStatus } from '../enums/entities.enums';
@@ -91,6 +91,7 @@ export class Product {
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
-  @OneToMany(() => Reservation, (listing) => listing.product)
+  @Field(() => [Reservation])
+  @ManyToMany(() => Reservation, (reservation) => reservation.products)
   reservations: Reservation[];
 }

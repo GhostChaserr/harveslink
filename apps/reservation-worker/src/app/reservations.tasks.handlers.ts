@@ -2,10 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { Task, TaskHandler } from 'nestjs-graphile-worker';
 
 import {
+  ProductReservationTaskPayload,
   RESERVATION_TASKS,
   ReservationsTasksService,
-  ReserveProductTaskPayload,
 } from 'services';
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 @Injectable()
 @Task(RESERVATION_TASKS.RESERVE_PRODUCT_TASK)
@@ -15,7 +19,7 @@ export class ReservationsTasksHandler {
   ) {}
 
   @TaskHandler()
-  async handler(task: ReserveProductTaskPayload) {
+  async handler(task: ProductReservationTaskPayload) {
     await this.reservationsTaskService.process(task);
   }
 }

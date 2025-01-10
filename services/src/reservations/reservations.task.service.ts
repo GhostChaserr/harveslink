@@ -4,10 +4,11 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { ReserveProductTaskPayload } from './reservations.task.service.interface';
+
 import { RESERVATION_TASKS } from './reservations.task.service.enums';
 
 import { ReservationsService } from './reservations.service';
+import { ProductReservationTaskPayload } from './reservations.task.service.interface';
 
 @Controller()
 export class ReservationsTasksService {
@@ -17,16 +18,15 @@ export class ReservationsTasksService {
     private readonly service: ReservationsService
   ) {}
 
-  public async process(input: ReserveProductTaskPayload) {
-    await this.service.reserveProduct(
-      input.productId,
-      input.reservationId,
-      input.count
+  public async process(input: ProductReservationTaskPayload) {
+    await this.service.reserveMultipleProducts(
+      input.products,
+      input.reservationId
     );
     this.logger.debug('input:', input);
   }
 
-  public async create(input: ReserveProductTaskPayload) {
+  public async create(input: ProductReservationTaskPayload) {
     try {
       const task = await this.graphileWorker.addJob(
         RESERVATION_TASKS.RESERVE_PRODUCT_TASK,
@@ -34,7 +34,7 @@ export class ReservationsTasksService {
         {
           maxAttempts: 1,
           priority: 1,
-          queueName: input.productId,
+          queueName: input.products.map((item) => item.id).join('-'),
           jobKey: input.reservationId,
         }
       );

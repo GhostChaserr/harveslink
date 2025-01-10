@@ -2,13 +2,22 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import GraphQLJSON from 'graphql-type-json';
 import { Account } from './account.entity';
 import { Product } from './product.entity';
 import { ReservationStatusEnum } from '../enums/entities.enums';
+
+@ObjectType()
+export class ProductUsageDetails {
+  @Field(() => GraphQLJSON)
+  details: Record<string, string>;
+}
 
 @ObjectType()
 @Entity('reservations')
@@ -20,10 +29,6 @@ export class Reservation {
   @Field(() => String)
   @Column({ unique: true })
   code: string;
-
-  @Field(() => Float, { nullable: true })
-  @Column({ nullable: true })
-  count?: number;
 
   @Field(() => Date)
   @CreateDateColumn()
@@ -44,10 +49,14 @@ export class Reservation {
   })
   account: Account;
 
-  @Field(() => Product)
-  @ManyToOne(() => Product, (account) => account.reservations, {
-    onDelete: 'CASCADE',
+  @Field(() => GraphQLJSON, { nullable: true })
+  @Column({ type: 'jsonb', nullable: true })
+  productUsageDetails?: ProductUsageDetails;
+
+  @Field(() => [Product])
+  @ManyToMany(() => Product, (product) => product.reservations, {
     eager: true,
   })
-  product: Product;
+  @JoinTable()
+  products: Product[];
 }
