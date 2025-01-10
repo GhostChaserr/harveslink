@@ -8,18 +8,18 @@ import {
   AccountProductModule,
   CategoryModule,
   DatabaseConnectionModule,
-  DatabaseTaskWorkerConnectionModule,
   ProductModule,
   ReservationsModule,
   UnitModule,
 } from 'services';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductResolver } from './product/product.resolver';
 import { AccountResolver } from './account/account.resolver';
 import { CategoryResolver } from './category/category.resolver';
 import { UnitResolver } from './unit/unit.resolver';
-import { ReservationsTasksHandler } from './reservations/reservations.tasks.handlers';
+
 import { ReservationsResolver } from './reservations/reservations.resolver';
+import { GraphileWorkerModule } from 'nestjs-graphile-worker';
 
 @Module({
   imports: [
@@ -29,9 +29,24 @@ import { ReservationsResolver } from './reservations/reservations.resolver';
     ReservationsModule,
     CategoryModule,
     UnitModule,
+    GraphileWorkerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const user = configService.get<string>('POSTGRES_USER');
+        const password = configService.get<string>('POSTGRES_PASSWORD');
+        const host = configService.get<string>('POSTGRES_HOST');
+        const port = configService.get<string>('POSTGRES_PORT');
+        const db = configService.get<string>('POSTGRES_DB');
+        const connectionString = `postgres://${user}:${password}@${host}:${port}/${db}`;
+        return {
+          connectionString,
+          concurrency: 1,
+        };
+      },
+      inject: [ConfigService],
+    }),
     AccountProductModule,
     DatabaseConnectionModule,
-    DatabaseTaskWorkerConnectionModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
@@ -41,7 +56,6 @@ import { ReservationsResolver } from './reservations/reservations.resolver';
   controllers: [],
   providers: [
     ReservationsResolver,
-    ReservationsTasksHandler,
     ProductResolver,
     AccountResolver,
     CategoryResolver,

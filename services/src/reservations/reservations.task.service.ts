@@ -33,6 +33,9 @@ export class ReservationsTasksService {
         input,
         {
           maxAttempts: 1,
+          priority: 1,
+          queueName: input.productId,
+          jobKey: input.reservationId,
         }
       );
       this.logger.debug('task:', task);

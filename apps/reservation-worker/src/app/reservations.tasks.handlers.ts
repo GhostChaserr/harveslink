@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Task, TaskHandler } from 'nestjs-graphile-worker';
 
 import {
@@ -13,7 +13,6 @@ export class ReservationsTasksHandler {
   constructor(
     private readonly reservationsTaskService: ReservationsTasksService
   ) {}
-  private logger = new Logger(ReservationsTasksHandler.name);
 
   @TaskHandler()
   async handler(task: ReserveProductTaskPayload) {

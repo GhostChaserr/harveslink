@@ -1,12 +1,17 @@
 import { Module } from '@nestjs/common';
+
+import {
+  AccountProductModule,
+  DatabaseConnectionModule,
+  ReservationsModule,
+} from 'services';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ReservationsTasksHandler } from './reservations.tasks.handlers';
 import { GraphileWorkerModule } from 'nestjs-graphile-worker';
 
 @Module({
   imports: [
-    // Import ConfigModule so that we can inject the ConfigService
-    // to read our environment variables.
-    ConfigModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     GraphileWorkerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
@@ -15,19 +20,19 @@ import { GraphileWorkerModule } from 'nestjs-graphile-worker';
         const host = configService.get<string>('POSTGRES_HOST');
         const port = configService.get<string>('POSTGRES_PORT');
         const db = configService.get<string>('POSTGRES_DB');
-
-        // Construct the Postgres connection string dynamically from ENV vars
         const connectionString = `postgres://${user}:${password}@${host}:${port}/${db}`;
-
         return {
           connectionString,
-          concurrency: 5,
-          // schema: 'graphile_worker',
+          concurrency: 1,
         };
       },
       inject: [ConfigService],
     }),
+    ReservationsModule,
+    AccountProductModule,
+    DatabaseConnectionModule,
   ],
-  exports: [GraphileWorkerModule],
+  controllers: [],
+  providers: [ReservationsTasksHandler],
 })
-export class DatabaseTaskWorkerConnectionModule {}
+export class AppModule {}

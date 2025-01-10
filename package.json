@@ -5,6 +5,7 @@
   "scripts": {
     "start:client:app": "nx run client-app:serve",
     "start:client:api": "nx run client-api:serve",
+    "start:reservation:worker": "nx run reservation-worker:serve",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "run:code:generate": "nx run generated:generate",
     "typeorm:generate-migration": "NODE_ENV=local npm run typeorm -- -d ./data-source.ts migration:generate ./migrations/migration",
@@ -24,6 +25,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
+    "graphile-worker": "^0.16.6",
     "nestjs-graphile-worker": "^0.8.0",
     "nestjs-typeorm-paginate": "^4.0.4",
     "pg": "^8.13.1",
