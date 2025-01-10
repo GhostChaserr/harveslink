@@ -60,6 +60,23 @@ enum UnitEnum {
   OTHER
 }
 
+type Reservation {
+  id: String!
+  code: String!
+  count: Float
+  createdAt: DateTime!
+  status: ReservationStatusEnum!
+  account: Account!
+  product: Product!
+}
+
+"""Different types of reservation status enums"""
+enum ReservationStatusEnum {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 type Product {
   id: String!
   productName: String!
@@ -113,7 +130,13 @@ type PaginatedProducts {
   meta: PaginationMeta!
 }
 
+type PaginatedReservations {
+  items: [Reservation!]!
+  meta: PaginationMeta!
+}
+
 type Query {
+  reservations(productId: String!, page: Float!, limit: Float!): PaginatedReservations!
   products(page: Float!, limit: Float!, filter: CreateProductFilterInput): PaginatedProducts!
   categories: [Category!]!
 }

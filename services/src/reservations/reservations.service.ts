@@ -15,9 +15,28 @@ export class ReservationsService {
     private readonly productService: ProductDatabaseService,
     private readonly accountService: AccountDatabaseService,
     private readonly reservationsDatabaseService: ReservationsDatabaseService,
-
     private dataSource: DataSource
   ) {}
+
+  async productReservations(page: number, limit: number, productId: string) {
+    const product = await this.productService.readProduct({
+      where: {
+        id: productId,
+      },
+    });
+    if (!product) throw new NotFoundException('product not found');
+    const data = this.reservationsDatabaseService.paginate(
+      {
+        page,
+        limit,
+      },
+      {
+        product,
+      }
+    );
+    this.logger.debug('data:', data);
+    return data;
+  }
 
   async reserveProduct(
     productId: string,
@@ -65,7 +84,7 @@ export class ReservationsService {
     }
   }
 
-  async create(productId: string, accountId: string) {
+  async create(productId: string, accountId: string, count: number) {
     this.logger.debug('product id:', productId);
     this.logger.debug('account id', accountId);
 
@@ -89,6 +108,7 @@ export class ReservationsService {
     const reservation = await this.reservationsDatabaseService.create({
       account,
       product,
+      count,
     });
 
     this.logger.debug('reservation:', reservation);

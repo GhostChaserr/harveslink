@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Float, ObjectType } from '@nestjs/graphql';
 import { Account } from './account.entity';
 import { Product } from './product.entity';
 import { ReservationStatusEnum } from '../enums/entities.enums';
@@ -16,6 +16,14 @@ export class Reservation {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Field(() => String)
+  @Column({ unique: true })
+  code: string;
+
+  @Field(() => Float, { nullable: true })
+  @Column({ nullable: true })
+  count?: number;
 
   @Field(() => Date)
   @CreateDateColumn()
@@ -29,13 +37,17 @@ export class Reservation {
   })
   status: ReservationStatusEnum;
 
+  @Field(() => Account)
   @ManyToOne(() => Account, (account) => account.reservations, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   account: Account;
 
+  @Field(() => Product)
   @ManyToOne(() => Product, (account) => account.reservations, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   product: Product;
 }

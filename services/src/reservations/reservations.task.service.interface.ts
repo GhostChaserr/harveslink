@@ -21,4 +21,5 @@ export class ReserveProductTaskPayload {
 export class ReservationCreateInput {
   product: Product;
   account: Account;
+  count?: number;
 }
