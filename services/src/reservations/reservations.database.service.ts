@@ -4,7 +4,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { nanoid } from 'nanoid';
 import {
   ProductUsageDetails,
@@ -32,14 +32,22 @@ export class ReservationsDatabaseService {
     private readonly reservationRepo: Repository<Reservation>
   ) {}
 
+  public async reservations(filter: FindManyOptions<Reservation>) {
+    try {
+      this.logger.debug('filter:', filter);
+      const rows = await this.reservationRepo.find(filter);
+      this.logger.debug('rows:', rows);
+      return rows;
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException('error:');
+    }
+  }
+
   createProductUsageDetails(products: ProductToReserve[]): ProductUsageDetails {
     const details: Record<string, string> = {};
 
     products.forEach((product) => {
-      /**
-       * If each product in this array already has a "count" property
-       * or similar, convert it to a string (as your details is Record<string, string>)
-       */
       const countAsString = product.count?.toString() ?? '0'; // fallback to '0'
       details[product.id] = countAsString;
     });

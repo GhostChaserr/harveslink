@@ -19,6 +19,17 @@ export class ReservationsService {
     private dataSource: DataSource
   ) {}
 
+  async reservations(productId: string) {
+    this.logger.debug('product id:', productId);
+    return this.reservationsDatabaseService.reservations({
+      where: {
+        products: {
+          id: productId,
+        },
+      },
+    });
+  }
+
   async reserveMultipleProducts(
     products: { id: string; count: number }[],
     reservationId: string

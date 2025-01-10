@@ -1,9 +1,10 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import {
   InputCreateProductsReservaton,
   ReservationsService,
   ReservationsTasksService,
+  Reservation,
 } from 'services';
 
 @Resolver()
@@ -12,6 +13,11 @@ export class ReservationsResolver {
     protected readonly taskService: ReservationsTasksService,
     protected readonly reservationService: ReservationsService
   ) {}
+
+  @Query(() => [Reservation], { name: 'reservations' })
+  async reservations(@Args('productId') productId: string) {
+    return this.reservationService.reservations(productId);
+  }
 
   @Mutation(() => String, { name: 'createProductReservationRequest' })
   async create(

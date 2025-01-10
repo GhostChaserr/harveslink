@@ -142,6 +142,7 @@ input ProductToReserve {
 }
 
 type Query {
+  reservations(productId: String!): [Reservation!]!
   products(page: Float!, limit: Float!, filter: CreateProductFilterInput): PaginatedProducts!
   categories: [Category!]!
 }
