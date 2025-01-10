@@ -33,18 +33,9 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Product {
+type Unit {
   id: String!
-  productName: String!
-  description: String!
-  price: Float!
-  country: String!
-  currency: String!
-  unit: UnitEnum!
-  quantityAvailable: Float!
-  expiryDate: DateTime!
-  media: [String!]!
-  status: String!
+  name: UnitEnum!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -67,6 +58,21 @@ enum UnitEnum {
   PACK
   TRAY
   OTHER
+}
+
+type Product {
+  id: String!
+  productName: String!
+  description: String!
+  price: Float!
+  country: String!
+  currency: String!
+  quantityAvailable: Float!
+  expiryDate: DateTime!
+  media: [String!]!
+  status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Account {
@@ -114,10 +120,10 @@ type Query {
 input CreateProductFilterInput {
   productName: String
   categoryId: String
+  unitId: String
   description: String
   price: Float
   country: String
-  unit: UnitEnum
   quantityAvailable: Float
   expiryDate: DateTime
   id: String
@@ -131,18 +137,18 @@ input CreateProductFilterInput {
 
 type Mutation {
   addProduct(input: CreateProductInput!): Product!
-  createNproducts(number: Float!): [Product!]!
   createAccount(input: CreateAccountInput!): Account!
   createCategory(input: CreateCategoryInput!): Product!
+  createUnit(input: CreateUnitInput!): Unit!
 }
 
 input CreateProductInput {
   productName: String!
   categoryId: String!
+  unitId: String!
   description: String!
   price: Float!
   country: String!
-  unit: UnitEnum!
   quantityAvailable: Float!
   expiryDate: DateTime!
 }
@@ -161,4 +167,8 @@ input CreateAccountInput {
 
 input CreateCategoryInput {
   category: CategoryEnum!
+}
+
+input CreateUnitInput {
+  name: UnitEnum!
 }

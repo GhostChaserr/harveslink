@@ -9,17 +9,20 @@ import {
   CategoryModule,
   DatabaseConnectionModule,
   ProductModule,
+  UnitModule,
 } from 'services';
 import { ConfigModule } from '@nestjs/config';
 import { ProductResolver } from './product/product.resolver';
 import { AccountResolver } from './account/account.resolver';
 import { CategoryResolver } from './category/category.resolver';
+import { UnitResolver } from './unit/unit.resolver';
 
 @Module({
   imports: [
     AccountModule,
     ProductModule,
     CategoryModule,
+    UnitModule,
     AccountProductModule,
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseConnectionModule,
@@ -30,6 +33,6 @@ import { CategoryResolver } from './category/category.resolver';
     }),
   ],
   controllers: [],
-  providers: [ProductResolver, AccountResolver, CategoryResolver],
+  providers: [ProductResolver, AccountResolver, CategoryResolver, UnitResolver],
 })
 export class AppModule {}

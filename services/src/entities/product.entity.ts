@@ -7,9 +7,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ObjectType, Field, Float } from '@nestjs/graphql';
-import { ListingStatus, UnitEnum } from '../enums/entities.enums';
+import { ListingStatus } from '../enums/entities.enums';
 import { Account } from './account.entity';
 import { Category } from './category.entity';
+import { Unit } from './unit.entity';
 
 @ObjectType()
 @Entity('products')
@@ -50,13 +51,11 @@ export class Product {
   @Column({ default: 'GEL' })
   currency: string;
 
-  @Field(() => UnitEnum)
-  @Column({
-    type: 'enum',
-    enum: UnitEnum,
-    default: UnitEnum.KG,
+  @ManyToOne(() => Unit, (unit) => unit.products, {
+    onDelete: 'SET NULL',
+    eager: true,
   })
-  unit: UnitEnum;
+  unit: Unit;
 
   @Field(() => Float)
   @Column('float', { default: 0 })

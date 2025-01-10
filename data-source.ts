@@ -5,7 +5,8 @@ import * as dotenv from 'dotenv';
 import { SeederOptions } from 'typeorm-extension';
 import { Account } from './services/src/entities/account.entity';
 import { Product } from './services/src/entities/product.entity';
-import { Category } from './services/src/entities/category.entity'
+import { Category } from './services/src/entities/category.entity';
+import { Unit } from './services/src/entities/unit.entity';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -27,7 +28,7 @@ const options: DataSourceOptions & SeederOptions = {
   database: process.env.POSTGRES_DB,
   synchronize: false,
   logging: true,
-  entities: [Account, Product, Category],
+  entities: [Account, Product, Category, Unit],
   seeds: [join(__dirname, '/**/seeds/*.{ts,js}')],
   factories: [join(__dirname, '/**/factories/*.{ts,js}')],
   migrations: [join(__dirname, '/**/migrations/*.{ts,js}')],

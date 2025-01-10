@@ -50,6 +50,7 @@ export class ProductDatabaseService {
     this.logger.debug('input:', input);
     const product = this.productRepository.create();
     product.productName = input.productName;
+    product.unit = input.unit;
     product.country = input.country;
     product.createdAt = new Date();
     product.category = input.category;

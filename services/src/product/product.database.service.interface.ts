@@ -1,15 +1,19 @@
 import { InputType, Field, Float, PartialType } from '@nestjs/graphql';
 import { Account } from '../entities/account.entity';
-import { UnitEnum } from '../enums/entities.enums';
+
 import { Category } from '../entities/category.entity';
+import { Unit } from '../entities/unit.entity';
 
 @InputType()
 export class CreateProductInput {
   @Field(() => String)
   productName: string;
-  
+
   @Field(() => String)
   categoryId: string;
+
+  @Field(() => String)
+  unitId: string;
 
   @Field(() => String)
   description: string;
@@ -20,17 +24,15 @@ export class CreateProductInput {
   @Field(() => String)
   country: string;
 
-  @Field(() => UnitEnum)
-  unit: UnitEnum;
-
   @Field(() => Float)
-  quantityAvailable: number; 
+  quantityAvailable: number;
 
   @Field(() => Date)
   expiryDate: Date;
 
+  unit: Unit;
   account: Account;
-  category: Category
+  category: Category;
 }
 
 @InputType()
