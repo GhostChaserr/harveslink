@@ -1,2 +1,6 @@
 export * from './entities/account.entity'
 export * from './entities/product.entity'
+export * from './database/database.connection'
+export * from './enums/entities.enums'
+export * from './product/product.module'
+export * from './product/product.service'
