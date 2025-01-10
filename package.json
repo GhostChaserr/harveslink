@@ -24,6 +24,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
+    "nestjs-graphile-worker": "^0.8.0",
     "nestjs-typeorm-paginate": "^4.0.4",
     "pg": "^8.13.1",
     "react": "18.3.1",

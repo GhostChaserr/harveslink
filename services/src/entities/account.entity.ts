@@ -67,4 +67,7 @@ export class Account {
   
   @OneToMany(() => Product, (listing) => listing.account)
   products: Product[];
+
+  @OneToMany(() => Product, (listing) => listing.account)
+  reservations: Product[];
 }

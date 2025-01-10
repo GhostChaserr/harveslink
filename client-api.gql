@@ -138,10 +138,17 @@ input CreateProductFilterInput {
 }
 
 type Mutation {
+  createProductReservationRequest(input: ReserveProductTaskPayload!): String!
   addProduct(input: CreateProductInput!): Product!
   createAccount(input: CreateAccountInput!): Account!
   createCategory(input: CreateCategoryInput!): Product!
   createUnit(input: CreateUnitInput!): Unit!
+}
+
+input ReserveProductTaskPayload {
+  productId: String!
+  accountId: String!
+  count: Int!
 }
 
 input CreateProductInput {

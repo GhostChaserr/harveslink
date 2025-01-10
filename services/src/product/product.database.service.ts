@@ -31,11 +31,11 @@ export class ProductDatabaseService {
     filter: FindOptionsWhere<Product>
   ): Promise<Pagination<Product>> {
     try {
-      this.logger.debug('filter:', filter)
+      this.logger.debug('filter:', filter);
       const products = await paginate<Product>(
         this.productRepository,
         options,
-        filter,
+        filter
       );
       this.logger.debug('products:', products.items);
       this.logger.debug('meta:', products.meta);

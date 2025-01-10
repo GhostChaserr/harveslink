@@ -8,7 +8,9 @@ import {
   AccountProductModule,
   CategoryModule,
   DatabaseConnectionModule,
+  DatabaseTaskWorkerConnectionModule,
   ProductModule,
+  ReservationsModule,
   UnitModule,
 } from 'services';
 import { ConfigModule } from '@nestjs/config';
@@ -16,16 +18,20 @@ import { ProductResolver } from './product/product.resolver';
 import { AccountResolver } from './account/account.resolver';
 import { CategoryResolver } from './category/category.resolver';
 import { UnitResolver } from './unit/unit.resolver';
+import { ReservationsTasksHandler } from './reservations/reservations.tasks.handlers';
+import { ReservationsResolver } from './reservations/reservations.resolver';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     AccountModule,
     ProductModule,
+    ReservationsModule,
     CategoryModule,
     UnitModule,
     AccountProductModule,
-    ConfigModule.forRoot({ isGlobal: true }),
     DatabaseConnectionModule,
+    DatabaseTaskWorkerConnectionModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
@@ -33,6 +39,13 @@ import { UnitResolver } from './unit/unit.resolver';
     }),
   ],
   controllers: [],
-  providers: [ProductResolver, AccountResolver, CategoryResolver, UnitResolver],
+  providers: [
+    ReservationsResolver,
+    ReservationsTasksHandler,
+    ProductResolver,
+    AccountResolver,
+    CategoryResolver,
+    UnitResolver,
+  ],
 })
 export class AppModule {}

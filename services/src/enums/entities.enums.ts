@@ -76,6 +76,18 @@ export enum UnitEnum {
   OTHER = 'other',
 }
 
+export enum ReservationStatusEnum {
+  PENDING='PENDING',
+  ACCEPTED='ACCEPTED',
+  REJECTED='REJECTED'
+}
+
+
+registerEnumType(ReservationStatusEnum, {
+  name: 'ReservationStatusEnum', // GraphQL type name
+  description: 'Different types of reservation status enums', // optional description
+});
+
 registerEnumType(CategoryEnum, {
   name: 'CategoryEnum', // GraphQL type name
   description: 'Different types of categories', // optional description
