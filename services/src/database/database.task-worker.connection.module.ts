@@ -21,9 +21,7 @@ import { GraphileWorkerModule } from 'nestjs-graphile-worker';
 
         return {
           connectionString,
-          // You can pass in additional Graphile Worker options here
-          // e.g. concurrency, schema, etc.
-          // concurrency: 5,
+          concurrency: 5,
           // schema: 'graphile_worker',
         };
       },
