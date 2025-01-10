@@ -30,6 +30,9 @@ export class CreateProductInput {
   @Field(() => Date)
   expiryDate: Date;
 
+  @Field(() => Date)
+  startDate: Date;
+
   unit: Unit;
   account: Account;
   category: Category;

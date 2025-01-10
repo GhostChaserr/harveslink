@@ -62,8 +62,12 @@ export class Product {
   quantityAvailable: number;
 
   @Field(() => Date)
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   expiryDate: Date;
+
+  @Field(() => Date)
+  @Column({ type: 'timestamptz', nullable: true })
+  startDate: Date;
 
   @Field(() => [String])
   @Column({ type: 'text', array: true, default: [] })
@@ -78,10 +82,10 @@ export class Product {
   status: ListingStatus;
 
   @Field(() => Date)
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
   @Field(() => Date)
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 }

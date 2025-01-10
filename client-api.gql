@@ -69,6 +69,7 @@ type Product {
   currency: String!
   quantityAvailable: Float!
   expiryDate: DateTime!
+  startDate: DateTime!
   media: [String!]!
   status: String!
   createdAt: DateTime!
@@ -126,6 +127,7 @@ input CreateProductFilterInput {
   country: String
   quantityAvailable: Float
   expiryDate: DateTime
+  startDate: DateTime
   id: String
   priceGte: Float
   priceLte: Float
@@ -151,6 +153,7 @@ input CreateProductInput {
   country: String!
   quantityAvailable: Float!
   expiryDate: DateTime!
+  startDate: DateTime!
 }
 
 input CreateAccountInput {

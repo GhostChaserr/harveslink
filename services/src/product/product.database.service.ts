@@ -52,6 +52,7 @@ export class ProductDatabaseService {
     product.productName = input.productName;
     product.unit = input.unit;
     product.country = input.country;
+    product.startDate = input.startDate;
     product.createdAt = new Date();
     product.category = input.category;
     product.description = input.description;
