@@ -1,3 +1,5 @@
+import { registerEnumType } from '@nestjs/graphql';
+
 export enum AccountType {
   FARMER = 'farmer',
   RESTAURANT = 'restaurant',
@@ -36,3 +38,34 @@ export enum DeliveryStatus {
   IN_PROGRESS = 'in_progress',
   DELIVERED = 'delivered',
 }
+
+// Register each enum with GraphQL
+registerEnumType(AccountType, {
+  name: 'AccountType', // GraphQL type name
+  description: 'Different types of accounts', // optional description
+});
+
+registerEnumType(ListingStatus, {
+  name: 'ListingStatus',
+  description: 'Possible statuses for a listing',
+});
+
+registerEnumType(OrderStatus, {
+  name: 'OrderStatus',
+  description: 'Possible statuses for an order',
+});
+
+registerEnumType(PaymentMethod, {
+  name: 'PaymentMethod',
+  description: 'Available payment methods',
+});
+
+registerEnumType(TransactionStatus, {
+  name: 'TransactionStatus',
+  description: 'Possible statuses for a transaction',
+});
+
+registerEnumType(DeliveryStatus, {
+  name: 'DeliveryStatus',
+  description: 'Possible statuses for a delivery',
+});

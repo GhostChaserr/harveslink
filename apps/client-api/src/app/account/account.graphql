@@ -1,0 +1,11 @@
+mutation{
+  createAccount(input:{
+    fullName:"George",
+    email:"george@gmail.com",
+    phone:"123131",
+    accountType:RESTAURANT,
+    password:"asda"
+  }){
+    accountType
+  }
+}

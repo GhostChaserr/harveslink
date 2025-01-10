@@ -20,7 +20,7 @@ export class Product {
     onDelete: 'CASCADE',
     eager: true, // automatically load farmer data if needed
   })
-  farmer: Account;
+  account: Account;
 
   @Field(() => String)
   @Column()
