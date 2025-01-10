@@ -1,12 +1,12 @@
 mutation {
   addProduct(input: {
-    productName: "Sample Product",
-    category: "General",
-    description: "A high-quality sample product.",
-    price: 19.99,
+    productName: "შავი საფერავი",
+    category: "Fruits",
+    description: "დარჩენილი შავი საფერი. არის ახალი მოკრეფილი",
+    price: 1.23,
     country: "GEO",
     unit: "kg",
-    quantityAvailable: 100,
+    quantityAvailable: 300,
     expiryDate: "2025-12-31T00:00:00.000Z"
   }){
     id

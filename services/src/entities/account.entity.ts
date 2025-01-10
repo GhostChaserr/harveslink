@@ -20,7 +20,7 @@ export class Account {
   @Field(() => String)
   @Column()
   fullName: string;
-  
+
   @Field(() => String)
   @Column({ unique: true })
   email: string;
