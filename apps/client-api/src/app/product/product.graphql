@@ -1,0 +1,15 @@
+mutation {
+  addProduct(input: {
+    productName: "Sample Product",
+    category: "General",
+    description: "A high-quality sample product.",
+    price: 19.99,
+    country: "GEO",
+    unit: "kg",
+    quantityAvailable: 100,
+    expiryDate: "2025-12-31T00:00:00.000Z"
+  }){
+    id
+    expiryDate
+  }
+}

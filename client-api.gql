@@ -3,18 +3,59 @@
 # ------------------------------------------------------
 
 type Product {
+  id: String!
   productName: String!
-  category: String!
+  category: CategoryEnum!
   description: String!
   price: Float!
   country: String!
-  unit: String!
+  currency: String!
+  unit: UnitEnum!
   quantityAvailable: Float!
   expiryDate: DateTime!
   media: [String!]!
   status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+"""Different types of categories"""
+enum CategoryEnum {
+  FRUITS
+  VEGETABLES
+  GRAINS
+  NUTS
+  SEEDS
+  LEGUMES
+  HERBS_SPICES
+  DAIRY
+  EGGS
+  MEAT
+  SEAFOOD
+  BAKED_GOODS
+  BEVERAGES
+  PROCESSED
+  OTHER
+}
+
+"""Different types of units"""
+enum UnitEnum {
+  KG
+  GRAM
+  POUND
+  OUNCE
+  LITER
+  MILLILITER
+  BUSHEL
+  CRATE
+  BOX
+  BAG
+  BUNCH
+  DOZEN
+  UNIT
+  PACK
+  TRAY
+  OTHER
 }
 
 """
@@ -52,16 +93,17 @@ type Query {
 
 type Mutation {
   addProduct(input: CreateProductInput!): Product!
+  createNproducts(number: Float!): [Product!]!
   createAccount(input: CreateAccountInput!): Account!
 }
 
 input CreateProductInput {
   productName: String!
-  category: String!
+  category: CategoryEnum!
   description: String!
   price: Float!
   country: String!
-  unit: String!
+  unit: UnitEnum!
   quantityAvailable: Float!
   expiryDate: DateTime!
 }

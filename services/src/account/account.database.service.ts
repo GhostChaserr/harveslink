@@ -16,16 +16,15 @@ export class AccountDatabaseService {
     private readonly accountRepository: Repository<Account>
   ) {}
 
-  public async readAccount(options: FindOneOptions<Account>){
+  public async readAccount(options: FindOneOptions<Account>) {
     try {
       const account = await this.accountRepository.findOne(options);
-      this.logger.debug('acc:', account)
+      this.logger.debug('acc:', account);
       return account;
     } catch (error) {
       this.logger.error(error);
       throw new InternalServerErrorException(error);
     }
-
   }
 
   // CREATE
@@ -51,6 +50,17 @@ export class AccountDatabaseService {
       const record = await this.accountRepository.save(instance);
       this.logger.debug('record:', record);
       return record;
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  public async bulkCreate(accounts: Account[]) {
+    try {
+      const records = await this.accountRepository.save(accounts);
+      this.logger.debug('recorsd:', records);
+      return records;
     } catch (error) {
       this.logger.error(error);
       throw new InternalServerErrorException(error);

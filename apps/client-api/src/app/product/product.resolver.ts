@@ -22,4 +22,9 @@ export class ProductResolver {
     const accountId = '23a91694-1291-4345-91c0-6d93b4c89d7c';
     return this.accountProductService.addProduct(input, accountId);
   }
+
+  @Mutation(() => [Product], { name: 'createNproducts' })
+  async createNproducts(@Args('number') number: number): Promise<Product[]> {
+    return this.accountProductService.createNproducts(number)
+  }
 }

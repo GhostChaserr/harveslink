@@ -1,13 +1,14 @@
 import { InputType, Field, Float } from '@nestjs/graphql';
 import { Account } from '../entities/account.entity';
+import { CategoryEnum, UnitEnum } from '../enums/entities.enums';
 
 @InputType()
 export class CreateProductInput {
   @Field(() => String)
   productName: string;
 
-  @Field(() => String)
-  category: string; // optional because default is 'General'
+  @Field(() => CategoryEnum)
+  category: CategoryEnum; // optional because default is 'General'
 
   @Field(() => String)
   description: string;
@@ -16,10 +17,10 @@ export class CreateProductInput {
   price: number; // default 0 if not provided
 
   @Field(() => String)
-  country: string; // default 'GEO'
+  country: string;
 
-  @Field(() => String)
-  unit: string; // default 'kg'
+  @Field(() => UnitEnum)
+  unit: UnitEnum; 
 
   @Field(() => Float)
   quantityAvailable: number; // default 0

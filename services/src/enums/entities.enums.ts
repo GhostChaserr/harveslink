@@ -39,6 +39,53 @@ export enum DeliveryStatus {
   DELIVERED = 'delivered',
 }
 
+export enum CategoryEnum {
+  FRUITS = 'Fruits',
+  VEGETABLES = 'Vegetables',
+  GRAINS = 'Grains',
+  NUTS = 'Nuts',
+  SEEDS = 'Seeds',
+  LEGUMES = 'Legumes',
+  HERBS_SPICES = 'Herbs & Spices',
+  DAIRY = 'Dairy',
+  EGGS = 'Eggs',
+  MEAT = 'Meat',
+  SEAFOOD = 'Seafood',
+  BAKED_GOODS = 'Baked Goods',
+  BEVERAGES = 'Beverages',
+  PROCESSED = 'Processed Foods', // e.g. jams, pickles, sauces
+  OTHER = 'Other',
+}
+
+export enum UnitEnum {
+  KG = 'kg',
+  GRAM = 'g',
+  POUND = 'lb',
+  OUNCE = 'oz',
+  LITER = 'l',
+  MILLILITER = 'ml',
+  BUSHEL = 'bushel',
+  CRATE = 'crate',
+  BOX = 'box',
+  BAG = 'bag',
+  BUNCH = 'bunch',   // e.g. for herbs, leafy greens, grapes
+  DOZEN = 'dozen',   // e.g. eggs
+  UNIT = 'unit',     // e.g. single count items (like individual melons)
+  PACK = 'pack',     // e.g. packaged goods
+  TRAY = 'tray',
+  OTHER = 'other',
+}
+
+registerEnumType(CategoryEnum, {
+  name: 'CategoryEnum', // GraphQL type name
+  description: 'Different types of categories', // optional description
+});
+
+registerEnumType(UnitEnum, {
+  name: 'UnitEnum', // GraphQL type name
+  description: 'Different types of units', // optional description
+});
+
 // Register each enum with GraphQL
 registerEnumType(AccountType, {
   name: 'AccountType', // GraphQL type name
