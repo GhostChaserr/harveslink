@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@harveslink/generated": ["generated/src/index.ts"],
+      "services": ["services/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -40,3 +40,13 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+
+
+*.env
+*.env.*
+
+.nx
+
+# Next.js
+.next
+out
