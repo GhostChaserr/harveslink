@@ -2,19 +2,31 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import {
   AccountProductService,
+  CreateProductFilterInput,
   CreateProductInput,
+  PaginatedProducts,
   Product,
+  ProductBackOfficeService,
 } from 'services';
 
 @Resolver(() => Product)
 export class ProductResolver {
   constructor(
-    private readonly accountProductService: AccountProductService
+    private readonly accountProductService: AccountProductService,
+    private readonly productBackOfficeService: ProductBackOfficeService
   ) {}
 
-  @Query(() => [Product])
-  async products(){
-    return []
+  @Query(() => PaginatedProducts)
+  async products(
+    @Args('page') page: number,
+    @Args('limit') limit: number,
+    @Args('filter', { nullable: true }) filter?: CreateProductFilterInput
+  ) {
+    return this.productBackOfficeService.readProductsPaginated(
+      page,
+      limit,
+      filter
+    );
   }
 
   @Mutation(() => Product, { name: 'addProduct' })
@@ -25,6 +37,6 @@ export class ProductResolver {
 
   @Mutation(() => [Product], { name: 'createNproducts' })
   async createNproducts(@Args('number') number: number): Promise<Product[]> {
-    return this.accountProductService.createNproducts(number)
+    return this.accountProductService.createNproducts(number);
   }
 }

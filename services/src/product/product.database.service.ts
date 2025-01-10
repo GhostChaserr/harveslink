@@ -4,7 +4,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOneOptions, Repository } from 'typeorm';
+import { FindOneOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { Product } from '../entities/product.entity';
 import { CreateProductInput } from './product.database.service.interface';
 
@@ -26,8 +26,24 @@ export class ProductDatabaseService {
     return 'product_image.png';
   }
 
-  async paginate(options: IPaginationOptions): Promise<Pagination<Product>> {
-    return paginate<Product>(this.productRepository, options);
+  async paginate(
+    options: IPaginationOptions,
+    filter: FindOptionsWhere<Product>
+  ): Promise<Pagination<Product>> {
+    try {
+      this.logger.debug('filter:', filter)
+      const products = await paginate<Product>(
+        this.productRepository,
+        options,
+        filter,
+      );
+      this.logger.debug('products:', products.items);
+      this.logger.debug('meta:', products.meta);
+      return products;
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException('error:');
+    }
   }
 
   createInstance(input: CreateProductInput) {

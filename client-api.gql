@@ -87,8 +87,39 @@ enum AccountType {
   ADMIN
 }
 
+type PaginationMeta {
+  itemCount: Float!
+  totalItems: Float!
+  itemsPerPage: Float!
+  totalPages: Float!
+  currentPage: Float!
+}
+
+type PaginatedProducts {
+  items: [Product!]!
+  meta: PaginationMeta!
+}
+
 type Query {
-  products: [Product!]!
+  products(page: Float!, limit: Float!, filter: CreateProductFilterInput): PaginatedProducts!
+}
+
+input CreateProductFilterInput {
+  productName: String
+  category: CategoryEnum
+  description: String
+  price: Float
+  country: String
+  unit: UnitEnum
+  quantityAvailable: Float
+  expiryDate: DateTime
+  id: String
+  priceGte: Float
+  priceLte: Float
+  quantityAvailableGte: Float
+  quantityAvailableLte: Float
+  expiryDateGte: DateTime
+  expiryDateLte: DateTime
 }
 
 type Mutation {
