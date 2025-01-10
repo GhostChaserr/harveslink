@@ -6,17 +6,20 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import {
   AccountModule,
   AccountProductModule,
+  CategoryModule,
   DatabaseConnectionModule,
   ProductModule,
 } from 'services';
 import { ConfigModule } from '@nestjs/config';
 import { ProductResolver } from './product/product.resolver';
 import { AccountResolver } from './account/account.resolver';
+import { CategoryResolver } from './category/category.resolver';
 
 @Module({
   imports: [
     AccountModule,
     ProductModule,
+    CategoryModule,
     AccountProductModule,
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseConnectionModule,
@@ -27,6 +30,6 @@ import { AccountResolver } from './account/account.resolver';
     }),
   ],
   controllers: [],
-  providers: [ProductResolver, AccountResolver],
+  providers: [ProductResolver, AccountResolver, CategoryResolver],
 })
 export class AppModule {}

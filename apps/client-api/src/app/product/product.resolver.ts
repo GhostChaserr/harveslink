@@ -30,7 +30,7 @@ export class ProductResolver {
   }
 
   @Mutation(() => Product, { name: 'addProduct' })
-  async addProduct(@Args('input') input: CreateProductInput): Promise<Product> {
+  async createProduct(@Args('input') input: CreateProductInput): Promise<Product> {
     const accountId = '23a91694-1291-4345-91c0-6d93b4c89d7c';
     return this.accountProductService.addProduct(input, accountId);
   }

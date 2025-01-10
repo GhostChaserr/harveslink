@@ -2,19 +2,9 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Product {
+type Category {
   id: String!
-  productName: String!
   category: CategoryEnum!
-  description: String!
-  price: Float!
-  country: String!
-  currency: String!
-  unit: UnitEnum!
-  quantityAvailable: Float!
-  expiryDate: DateTime!
-  media: [String!]!
-  status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -38,6 +28,27 @@ enum CategoryEnum {
   OTHER
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Product {
+  id: String!
+  productName: String!
+  description: String!
+  price: Float!
+  country: String!
+  currency: String!
+  unit: UnitEnum!
+  quantityAvailable: Float!
+  expiryDate: DateTime!
+  media: [String!]!
+  status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 """Different types of units"""
 enum UnitEnum {
   KG
@@ -57,11 +68,6 @@ enum UnitEnum {
   TRAY
   OTHER
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type Account {
   id: String!
@@ -102,11 +108,12 @@ type PaginatedProducts {
 
 type Query {
   products(page: Float!, limit: Float!, filter: CreateProductFilterInput): PaginatedProducts!
+  categories: [Category!]!
 }
 
 input CreateProductFilterInput {
   productName: String
-  category: CategoryEnum
+  categoryId: String
   description: String
   price: Float
   country: String
@@ -126,11 +133,12 @@ type Mutation {
   addProduct(input: CreateProductInput!): Product!
   createNproducts(number: Float!): [Product!]!
   createAccount(input: CreateAccountInput!): Account!
+  createCategory(input: CreateCategoryInput!): Product!
 }
 
 input CreateProductInput {
   productName: String!
-  category: CategoryEnum!
+  categoryId: String!
   description: String!
   price: Float!
   country: String!
@@ -149,4 +157,8 @@ input CreateAccountInput {
   locationLon: Float
   ratingAverage: Float! = 0
   reviewsCount: Int! = 0
+}
+
+input CreateCategoryInput {
+  category: CategoryEnum!
 }

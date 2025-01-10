@@ -47,11 +47,12 @@ export class ProductDatabaseService {
   }
 
   createInstance(input: CreateProductInput) {
+    this.logger.debug('input:', input);
     const product = this.productRepository.create();
     product.productName = input.productName;
-    product.category = input.category;
     product.country = input.country;
     product.createdAt = new Date();
+    product.category = input.category;
     product.description = input.description;
     product.expiryDate = input.expiryDate;
     product.media = [

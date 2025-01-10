@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Account } from '../entities/account.entity';
 import { Product } from '../entities/product.entity';
-
+import { Category } from '../entities/category.entity';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { Product } from '../entities/product.entity';
           username,
           password,
           database,
-          entities: [Account, Product],
+          entities: [Account, Product, Category],
           synchronize: false,
           dropSchema: false,
         };
