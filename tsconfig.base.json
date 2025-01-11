@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@harveslink/generated": ["generated/src/index.ts"],
+      "design": ["design/src/index.ts"],
       "services": ["services/src/index.ts"]
     }
   },

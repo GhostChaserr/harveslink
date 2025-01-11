@@ -1,14 +1,15 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.css';
+import { Box, Text } from '@mantine/core';
+
 
 export function App() {
   return (
-    <div>
-      <h1>
-        <span> Hello there, </span>
-        Welcome client-app 👋
-      </h1>
-    </div>
+    <Box mt={'md'}>
+      <form>
+        <Text>
+          განათავსე განცხადება!
+        </Text>
+      </form>
+    </Box>
   );
 }
 
