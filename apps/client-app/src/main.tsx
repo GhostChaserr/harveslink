@@ -2,7 +2,6 @@ import { StrictMode } from 'react';
 import '@mantine/core/styles.css';
 import './styles.css';
 import * as ReactDOM from 'react-dom/client';
-import App from './app/app';
 import { MantineProvider } from '@mantine/core';
 import { AppTheme } from 'design';
 
@@ -17,7 +16,7 @@ root.render(
         fontFamily: 'BPG WEB 001 Caps, sans-serif',
       })}
     >
-      <App />
+      <div>App..</div>
     </MantineProvider>
   </StrictMode>
 );
