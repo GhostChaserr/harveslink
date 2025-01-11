@@ -9,6 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ReservationsTasksHandler } from './reservations.tasks.handlers';
 import { GraphileWorkerModule } from 'nestjs-graphile-worker';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),

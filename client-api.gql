@@ -149,6 +149,21 @@ type PaginatedProducts {
   meta: PaginationMeta!
 }
 
+type AuthPayload {
+  accessToken: String!
+  accountType: String!
+}
+
+type Session {
+  fullName: String!
+  email: String!
+  profile: String!
+  phone: String!
+  id: String!
+  createdAt: DateTime!
+  accountType: AccountType!
+}
+
 input ProductToReserve {
   id: String!
   count: Float!
@@ -159,6 +174,7 @@ type Query {
   reservations(productId: String!): [Reservation!]!
   products(page: Float!, limit: Float!, filter: CreateProductFilterInput): PaginatedProducts!
   categories: [Category!]!
+  session: Session!
 }
 
 input CreateProductFilterInput {
@@ -188,6 +204,10 @@ type Mutation {
   createAccount(input: CreateAccountInput!): Account!
   createCategory(input: CreateCategoryInput!): Product!
   createUnit(input: CreateUnitInput!): Unit!
+  signUp(input: CreateAccountInput!, code: Float!): AuthPayload!
+  checkAccount(phone: String!): Boolean!
+  generateOtp(phone: String!): Boolean!
+  signIn(phone: String!, code: Float!): AuthPayload!
 }
 
 input CreateBranchInput {

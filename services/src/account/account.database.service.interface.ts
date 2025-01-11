@@ -8,7 +8,6 @@ export class CreateAccountInput {
 
   @Field()
   email: string;
-  
 
   @Field()
   password: string;
@@ -30,5 +29,5 @@ export class CreateAccountInput {
 
   @Field(() => Int, { defaultValue: 0 })
   reviewsCount?: number;
-  
 }
+

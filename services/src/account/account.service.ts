@@ -1,20 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Account } from '../entities/account.entity';
+import { Injectable, Logger } from '@nestjs/common';
+
+import { AccountDatabaseService } from './account.database.service';
 
 @Injectable()
 export class AccountService {
+  private readonly logger: Logger = new Logger(AccountService.name);
   constructor(
-    @InjectRepository(Account)
-    private readonly accountRepository: Repository<Account>
+    protected readonly accountDatabaseService: AccountDatabaseService
   ) {}
-
-  // CREATE
-  async create(data: Partial<Account>): Promise<Account> {
-    const account = this.accountRepository.create(data);
-    return this.accountRepository.save(account);
-  }
-
-
 }

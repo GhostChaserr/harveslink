@@ -1,0 +1,2 @@
+export const OTP_TASKS_QUEUE='OTP_TASKS_QUEUE'
+export const OTP_TASK='OTP_TASK'

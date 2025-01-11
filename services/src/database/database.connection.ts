@@ -7,6 +7,7 @@ import { Category } from '../entities/category.entity';
 import { Unit } from '../entities/unit.entity';
 import { Reservation } from '../entities/reservation.entity';
 import { Branch } from '../entities/branch.entity';
+import { Job } from '../entities/job.entity';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { Branch } from '../entities/branch.entity';
           username,
           password,
           database,
-          entities: [Account, Product, Category, Unit, Reservation, Branch],
+          entities: [Account, Product, Category, Unit, Reservation, Branch, Job],
           synchronize: false,
           dropSchema: false,
         };

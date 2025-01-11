@@ -12,21 +12,24 @@ import {
   ReservationsModule,
   BranchModule,
   UnitModule,
+  AuthModule,
 } from 'services';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductResolver } from './product/product.resolver';
 import { AccountResolver } from './account/account.resolver';
 import { CategoryResolver } from './category/category.resolver';
 import { UnitResolver } from './unit/unit.resolver';
-
 import { ReservationsResolver } from './reservations/reservations.resolver';
 import { GraphileWorkerModule } from 'nestjs-graphile-worker';
 import { BranchResolver } from './branch/branch.resolver';
+import { OtpTaskHandler } from './tasks/otp.tasks.handlers';
+import { AuthResolver } from './auth/auth.resolver';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AccountModule,
+    AuthModule,
     ProductModule,
     ReservationsModule,
     CategoryModule,
@@ -59,11 +62,13 @@ import { BranchResolver } from './branch/branch.resolver';
   controllers: [],
   providers: [
     BranchResolver,
+    OtpTaskHandler,
     ReservationsResolver,
     ProductResolver,
     AccountResolver,
     CategoryResolver,
     UnitResolver,
+    AuthResolver,
   ],
 })
 export class AppModule {}
