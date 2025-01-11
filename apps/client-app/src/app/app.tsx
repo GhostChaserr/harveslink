@@ -1,16 +1,13 @@
-import { Box, Text } from '@mantine/core';
+import { HashTag } from "design";
+
 
 
 export function App() {
   return (
-    <Box mt={'md'}>
-      <form>
-        <Text>
-          განათავსე განცხადება!
-        </Text>
-      </form>
-    </Box>
-  );
+    <HashTag
+      tag="new"
+    />
+  )
 }
 
 export default App;
