@@ -74,6 +74,9 @@ export class ProductDatabaseService {
     product.category = input.category;
     product.description = input.description;
     product.expiryDate = input.expiryDate;
+    if (input.branch) {
+      product.branch = input.branch;
+    }
     product.media = [
       this.defaultProductImage(),
       this.defaultProductImage(),

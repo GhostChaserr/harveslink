@@ -3,6 +3,7 @@ import { Account } from '../entities/account.entity';
 
 import { Category } from '../entities/category.entity';
 import { Unit } from '../entities/unit.entity';
+import { Branch } from '../entities/branch.entity';
 
 @InputType()
 export class CreateProductInput {
@@ -11,6 +12,9 @@ export class CreateProductInput {
 
   @Field(() => String)
   categoryId: string;
+
+  @Field(() => String, { nullable: true })
+  branchId?: string;
 
   @Field(() => String)
   unitId: string;
@@ -35,6 +39,7 @@ export class CreateProductInput {
 
   unit: Unit;
   account: Account;
+  branch?: Branch
   category: Category;
 }
 

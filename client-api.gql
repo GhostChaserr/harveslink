@@ -82,6 +82,19 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
+type Branch {
+  id: String!
+  country: String!
+  city: String!
+  address: String!
+  name: String!
+  cover: String!
+  locationLat: Float
+  locationLon: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 type Product {
   id: String!
   productName: String!
@@ -142,6 +155,7 @@ input ProductToReserve {
 }
 
 type Query {
+  branches: [Branch!]!
   reservations(productId: String!): [Reservation!]!
   products(page: Float!, limit: Float!, filter: CreateProductFilterInput): PaginatedProducts!
   categories: [Category!]!
@@ -150,6 +164,7 @@ type Query {
 input CreateProductFilterInput {
   productName: String
   categoryId: String
+  branchId: String
   unitId: String
   description: String
   price: Float
@@ -167,11 +182,21 @@ input CreateProductFilterInput {
 }
 
 type Mutation {
+  createBranch(input: CreateBranchInput!): Branch!
   createProductReservationRequest(input: InputCreateProductsReservaton!): String!
   addProduct(input: CreateProductInput!): Product!
   createAccount(input: CreateAccountInput!): Account!
   createCategory(input: CreateCategoryInput!): Product!
   createUnit(input: CreateUnitInput!): Unit!
+}
+
+input CreateBranchInput {
+  country: String!
+  city: String!
+  address: String!
+  name: String!
+  locationLat: Float
+  locationLon: Float
 }
 
 input InputCreateProductsReservaton {
@@ -182,6 +207,7 @@ input InputCreateProductsReservaton {
 input CreateProductInput {
   productName: String!
   categoryId: String!
+  branchId: String
   unitId: String!
   description: String!
   price: Float!

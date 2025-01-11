@@ -4,6 +4,7 @@ import { ProductDatabaseService } from '../product/product.database.service';
 import { AccountDatabaseService } from '../account/account.database.service';
 import { CategoryDatabaseService } from '../category/category.database.service';
 import { UnitDatabaseService } from '../unit/unit.database.servie';
+import { BranchDatabaseService } from '../branch/branch.database.service';
 
 @Injectable()
 export class AccountProductService {
@@ -11,7 +12,8 @@ export class AccountProductService {
     private readonly productDatabaseService: ProductDatabaseService,
     private readonly accountDatabaseService: AccountDatabaseService,
     private readonly categoryDatabaseService: CategoryDatabaseService,
-    private readonly unitDatabaseService: UnitDatabaseService
+    private readonly unitDatabaseService: UnitDatabaseService,
+    private readonly branchDatabaseService: BranchDatabaseService
   ) {}
 
   private async readAccountCategoryUnit(
@@ -56,6 +58,16 @@ export class AccountProductService {
     input.category = category;
     input.account = account;
     input.unit = unit;
+    if (input?.branchId) {
+      const branch = await this.branchDatabaseService.readBranch({
+        where: {
+          id: input.branchId,
+        },
+      });
+      if (branch) {
+        input.branch = branch;
+      }
+    }
     const product = await this.productDatabaseService.create(input);
     return product;
   }

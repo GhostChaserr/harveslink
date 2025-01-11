@@ -13,6 +13,7 @@ import { Account } from './account.entity';
 import { Category } from './category.entity';
 import { Unit } from './unit.entity';
 import { Reservation } from './reservation.entity';
+import { Branch } from './branch.entity';
 
 @ObjectType()
 @Entity('products')
@@ -26,6 +27,13 @@ export class Product {
     eager: true, // automatically load farmer data if needed
   })
   account: Account;
+
+  @ManyToOne(() => Branch, (branch) => branch.products, {
+    nullable: true,
+    onDelete: 'CASCADE',
+    eager: true, // automatically load farmer data if needed
+  })
+  branch: Branch;
 
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: 'SET NULL',

@@ -1,0 +1,35 @@
+mutation CreateBranch {
+  createBranch(
+    input: {
+      country: "USA"
+      city: "New York"
+      address: "123 Main St"
+      name: "My New Branch"
+      locationLat: 40.7128
+      locationLon: -74.0060
+    }
+  ) {
+    id
+    name
+    address
+    city
+    country
+    locationLat
+    locationLon
+    # If your schema returns an Account object for the branch,
+    # you can query any available fields here:
+    account {
+      id
+      name
+    }
+  }
+}
+
+query{
+  branches{
+    id
+  	locationLat
+    locationLon
+  }
+}
+

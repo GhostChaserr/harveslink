@@ -9,6 +9,7 @@ import {
 import { AccountType } from '../enums/entities.enums';
 import { Product } from './product.entity';
 import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { Branch } from './branch.entity';
 
 @ObjectType()
 @Entity('accounts')
@@ -67,6 +68,9 @@ export class Account {
   
   @OneToMany(() => Product, (listing) => listing.account)
   products: Product[];
+
+  @OneToMany(() => Branch, (listing) => listing.account)
+  branches: Product[];
 
   @OneToMany(() => Product, (listing) => listing.account)
   reservations: Product[];

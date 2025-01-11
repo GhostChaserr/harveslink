@@ -10,6 +10,7 @@ import {
   DatabaseConnectionModule,
   ProductModule,
   ReservationsModule,
+  BranchModule,
   UnitModule,
 } from 'services';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -20,6 +21,7 @@ import { UnitResolver } from './unit/unit.resolver';
 
 import { ReservationsResolver } from './reservations/reservations.resolver';
 import { GraphileWorkerModule } from 'nestjs-graphile-worker';
+import { BranchResolver } from './branch/branch.resolver';
 
 @Module({
   imports: [
@@ -29,6 +31,7 @@ import { GraphileWorkerModule } from 'nestjs-graphile-worker';
     ReservationsModule,
     CategoryModule,
     UnitModule,
+    BranchModule,
     GraphileWorkerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
@@ -55,6 +58,7 @@ import { GraphileWorkerModule } from 'nestjs-graphile-worker';
   ],
   controllers: [],
   providers: [
+    BranchResolver,
     ReservationsResolver,
     ProductResolver,
     AccountResolver,
