@@ -1,0 +1,5 @@
+.hashtag {
+  color: #1da1f2; /* Example color for the hashtag (like Twitter's blue) */
+  font-weight: bold; /* Make the hashtag bold */
+  display: inline-block; /* Ensure the hashtag stays inline */
+}

@@ -1,0 +1,15 @@
+.badge {
+  transform: scale(1);
+  transition: all ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.badge:hover {
+  top: -2px;
+  transition: all ease 0.3s;
+  border-color: var(--mantine-color-orange-4);
+  transform: scale(1.02);
+  transition: all ease;
+  color: var(--mantine-color-orange-4);
+}
