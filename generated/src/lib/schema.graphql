@@ -1,0 +1,195 @@
+query GetBranches {
+  branches {
+    id
+    country
+    city
+    address
+    name
+    cover
+    locationLat
+    locationLon
+    createdAt
+    updatedAt
+  }
+}
+
+mutation SignIn($phone: String!, $code: Float!) {
+  signIn(phone: $phone, code: $code) {
+    accessToken
+    accountType
+  }
+}
+
+mutation GenerateOtp($phone: String!) {
+  generateOtp(phone: $phone)
+}
+
+mutation CheckAccount($phone: String!) {
+  checkAccount(phone: $phone)
+}
+
+mutation CreateFarmerAccount($input: CreateFarmerAccountInput!) {
+  createFarmerAccount(input: $input) {
+    accessToken
+    accountType
+  }
+}
+
+mutation SignUp($input: CreateAccountInput!, $code: Float!) {
+  signUp(input: $input, code: $code) {
+    accessToken
+    accountType
+  }
+}
+
+mutation CreateUnit($input: CreateUnitInput!) {
+  createUnit(input: $input) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    id
+    productName
+    description
+  }
+}
+
+mutation CreateAccount($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    id
+    fullName
+    email
+    accountType
+    phone
+    ratingAverage
+    reviewsCount
+    createdAt
+    updatedAt
+  }
+}
+
+mutation AddProduct($input: CreateProductInput!) {
+  addProduct(input: $input) {
+    id
+    productName
+    description
+    price
+    currency
+    quantityAvailable
+    expiryDate
+    startDate
+    country
+    city
+    address
+    media
+    status
+    createdAt
+    updatedAt
+    reservations {
+      id
+      code
+      status
+    }
+  }
+}
+
+mutation CreateProductReservationRequest($input: InputCreateProductsReservaton!) {
+  createProductReservationRequest(input: $input)
+}
+
+mutation CreateBranch($input: CreateBranchInput!) {
+  createBranch(input: $input) {
+    id
+    country
+    city
+    address
+    name
+    cover
+    locationLat
+    locationLon
+    createdAt
+    updatedAt
+  }
+}
+
+query GetSession {
+  session {
+    fullName
+    email
+    profile
+    phone
+    id
+    createdAt
+    accountType
+  }
+}
+
+query GetCategories {
+  categories {
+    id
+    category
+    createdAt
+    updatedAt
+  }
+}
+
+
+query GetProducts($page: Float!, $limit: Float!, $filter: CreateProductFilterInput) {
+  products(page: $page, limit: $limit, filter: $filter) {
+    items {
+      id
+      productName
+      description
+      price
+      currency
+      quantityAvailable
+      expiryDate
+      startDate
+      country
+      city
+      address
+      media
+      status
+      createdAt
+      updatedAt
+      reservations {
+        id
+        status
+      }
+    }
+    meta {
+      itemCount
+      totalItems
+      itemsPerPage
+      totalPages
+      currentPage
+    }
+  }
+}
+
+query GetReservations($productId: String!) {
+  reservations(productId: $productId) {
+    id
+    code
+    createdAt
+    status
+    productUsageDetails
+    account {
+      id
+      fullName
+      email
+      accountType
+    }
+    products {
+      id
+      productName
+      quantityAvailable
+      status
+    }
+  }
+}

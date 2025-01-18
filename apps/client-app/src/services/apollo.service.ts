@@ -1,6 +1,3 @@
-import Cookies from 'js-cookie';
-
-// Import only what you need from Apollo Client sub-packages
 import { ApolloClient } from '@apollo/client/core';
 import { createHttpLink } from '@apollo/client/link/http';
 import { setContext } from '@apollo/client/link/context';
@@ -14,7 +11,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // Retrieve token from cookies
-  const token = Cookies.get('token');
+  const token = sessionStorage.getItem('session');
 
   // Append token to headers
   return {

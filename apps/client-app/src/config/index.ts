@@ -15,8 +15,14 @@ switch (import.meta.env.VITE_ENV) {
     break;
 
   default:
-    config.API_URL = 'http://localhost:5400';
+    config.API_URL = 'http://localhost:3000';
     config.ENVIRONMENT = 'local';
 }
+
+export const SCREEN_MAPPINGS = {
+  SIGNIN: '/signin',
+  SIGNUP: '/signup',
+  HOME: '/HOME',
+};
 
 export default config;

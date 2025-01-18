@@ -4,6 +4,9 @@ import './styles.css';
 import * as ReactDOM from 'react-dom/client';
 import { MantineProvider } from '@mantine/core';
 import { AppTheme } from 'design';
+import client from './services/apollo.service';
+import { ApolloProvider } from '@apollo/client/react/context/ApolloProvider';
+import App from './app';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,12 +14,14 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <MantineProvider
-      theme={Object.assign({}, AppTheme, {
-        fontFamily: 'BPG WEB 001 Caps, sans-serif',
-      })}
-    >
-      <div>App..</div>
-    </MantineProvider>
+    <ApolloProvider client={client}>
+      <MantineProvider
+        theme={Object.assign({}, AppTheme, {
+          fontFamily: 'BPG WEB 001 Caps, sans-serif',
+        })}
+      >
+        <App/>
+      </MantineProvider>
+    </ApolloProvider>
   </StrictMode>
 );
