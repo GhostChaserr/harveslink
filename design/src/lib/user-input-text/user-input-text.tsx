@@ -5,8 +5,11 @@ interface UserInputTextProps {
   leftSectionIcon: ReactNode;
   text1: string;
   text2: string;
+  text3?: string;
+  placeHolder?: string
   key: string;
-};
+  autoFocus?: boolean
+}
 
 const UserInputText: FC<UserInputTextProps> = (props) => {
   const theme = useMantineTheme();
@@ -19,13 +22,14 @@ const UserInputText: FC<UserInputTextProps> = (props) => {
         mt={'sm'}
         size="lg"
         withAsterisk
-        autoFocus
+        autoFocus={props.autoFocus}
+        placeholder={props.placeHolder || ''}
         fz={'h6'}
         leftSection={props.leftSectionIcon}
         radius={'md'}
         {...props}
       />
-      <Text mt={'md'} c={theme.colors.secondary[11]} size="sm">
+      <Text mt={'md'} c={theme.colors.secondary[11]} size="xs">
         {props.text2}
       </Text>
     </Flex>

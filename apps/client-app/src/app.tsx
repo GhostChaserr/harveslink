@@ -1,15 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
-import { SignIn } from './screens/signin';
-import { SignUp } from './screens/signup';
-import { Home } from './screens/home';
+
+import { SignInScreen } from './screens/signin';
+import { SignUpScreen } from './screens/signup';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index path="/home" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignInScreen />} />
+        <Route path="/signup" element={<SignUpScreen />} />
       </Routes>
     </BrowserRouter>
   );

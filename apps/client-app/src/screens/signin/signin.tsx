@@ -16,11 +16,11 @@ import useSignIn from './useSignIn';
 import { FC } from 'react';
 import { UserInputText } from 'design';
 
-export type SignInPageProps = {
+export type SignInScreenProps = {
   onRegister?: () => void;
 };
 
-const SignInPage: FC<SignInPageProps> = ({ onRegister }) => {
+const SignInScreen: FC<SignInScreenProps> = ({ onRegister }) => {
   const { nextStep, phoneForm, otpForm, active, setActive, loading } =
     useSignIn();
   const theme = useMantineTheme();
@@ -103,4 +103,4 @@ const SignInPage: FC<SignInPageProps> = ({ onRegister }) => {
   );
 };
 
-export default SignInPage;
+export default SignInScreen;

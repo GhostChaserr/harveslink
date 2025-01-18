@@ -5,8 +5,11 @@ type UserInputTextProps = {
   leftSectionIcon: ReactNode;
   text1: string;
   text2: string;
+  text3?: string;
   key: string;
   options: string[];
+  placeHolder?: string
+  autoFocus?: boolean
 };
 
 const UserInputSelect: FC<UserInputTextProps> = (props) => {
@@ -21,6 +24,7 @@ const UserInputSelect: FC<UserInputTextProps> = (props) => {
         mt={'sm'}
         size="lg"
         withAsterisk
+        placeholder={props.placeHolder}
         fz={'h6'}
         leftSection={props.leftSectionIcon}
         radius={'md'}
@@ -29,10 +33,14 @@ const UserInputSelect: FC<UserInputTextProps> = (props) => {
         data={props.options}
         {...props}
       />
-      <Text mt={'md'} c={theme.colors.secondary[11]} size="sm">
+      <Text mt={'md'} c={theme.colors.secondary[11]} size="xs">
         {props.text2}
-        {/* ჩაწერე სახელი და გვარი სრულად სივრცის გამოტოვებით */}
       </Text>
+      {props.text3 && (
+        <Text mt={'md'} c={theme.colors.secondary[11]} size="xs">
+          {props.text3}
+        </Text>
+      )}
     </Flex>
   );
 };
