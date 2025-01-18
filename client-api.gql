@@ -97,10 +97,14 @@ type Branch {
 
 type Product {
   id: String!
+  account: Account
+  branch: Branch
+  category: Category
   productName: String!
   description: String!
   price: Float!
   currency: String!
+  unit: Unit
   quantityAvailable: Float!
   expiryDate: DateTime!
   startDate: DateTime!
@@ -111,7 +115,7 @@ type Product {
   status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  reservations: [Reservation!]!
+  reservations: [Reservation!]
 }
 
 type Account {

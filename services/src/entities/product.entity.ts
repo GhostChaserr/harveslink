@@ -21,13 +21,15 @@ export class Product {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
+  
+  @Field(() => Account, { nullable: true })
   @ManyToOne(() => Account, (account) => account.products, {
     onDelete: 'CASCADE',
     eager: true, // automatically load farmer data if needed
   })
   account: Account;
-
+  
+  @Field(() => Branch, { nullable: true })
   @ManyToOne(() => Branch, (branch) => branch.products, {
     nullable: true,
     onDelete: 'CASCADE',
@@ -35,6 +37,7 @@ export class Product {
   })
   branch: Branch;
 
+  @Field(() => Category, { nullable: true })
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: 'SET NULL',
     eager: true,
@@ -57,6 +60,7 @@ export class Product {
   @Column({ default: 'GEL' })
   currency: string;
 
+  @Field(() => Unit, { nullable: true })
   @ManyToOne(() => Unit, (unit) => unit.products, {
     onDelete: 'SET NULL',
     eager: true,
@@ -107,7 +111,7 @@ export class Product {
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
-  @Field(() => [Reservation])
+  @Field(() => [Reservation], { nullable: true })
   @ManyToMany(() => Reservation, (reservation) => reservation.products)
   reservations: Reservation[];
 }

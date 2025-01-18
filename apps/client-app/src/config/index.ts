@@ -22,7 +22,7 @@ switch (import.meta.env.VITE_ENV) {
 export const SCREEN_MAPPINGS = {
   SIGNIN: '/signin',
   SIGNUP: '/signup',
-  HOME: '/HOME',
+  HOME: '/',
 };
 
 export default config;

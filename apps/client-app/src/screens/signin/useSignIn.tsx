@@ -73,7 +73,7 @@ const useSignIn = () => {
         });
         if (!resp.data) return;
         sessionStorage.setItem('session', resp.data?.signIn.accessToken);
-        navigate(SCREEN_MAPPINGS.SIGNUP);
+        navigate(SCREEN_MAPPINGS.HOME);
       } catch (error) {
         console.error(error);
         otpForm.setFieldError('code', 'არასწორი კოდი');

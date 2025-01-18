@@ -14,7 +14,7 @@ export const User: FC<UserProps> = ({ firstName, lastName, email }) => {
     <Box className={classes.user}>
       <Group>
         {!isMobile && (
-          <Avatar variant="filled" radius="xl" color="yellow" src="" />
+          <Avatar variant="filled" radius="xl" src="" />
         )}
 
         <div style={{ flex: 1 }}>

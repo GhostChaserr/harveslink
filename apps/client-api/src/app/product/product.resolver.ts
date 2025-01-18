@@ -23,10 +23,13 @@ export class ProductResolver {
 
   @Query(() => PaginatedProducts)
   async products(
+    @SessionD() session: Session,
     @Args('page') page: number,
     @Args('limit') limit: number,
     @Args('filter', { nullable: true }) filter?: CreateProductFilterInput
   ) {
+    const accountId = session.id;
+    filter.id = accountId;
     return this.productBackOfficeService.readProductsPaginated(
       page,
       limit,

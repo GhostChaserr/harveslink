@@ -13,41 +13,38 @@ export function createProductsFilter(input?: CreateProductFilterInput) {
 
   if (!input) return where;
 
-  if (input.id) {
+  if (input?.id) {
     where.id = input.id;
   }
 
-  if (input.productName) {
+  if (input?.productName) {
     where.productName = input.productName;
   }
 
-  if (input.category) {
+  if (input?.category) {
     where.category = input.category;
   }
 
-  if (input.priceGte != null && input.priceLte != null) {
+  if (input?.priceGte && input?.priceLte) {
     where.price = Between(input.priceGte, input.priceLte);
-  } else if (input.priceGte != null) {
+  } else if (input?.priceGte) {
     where.price = MoreThanOrEqual(input.priceGte);
-  } else if (input.priceLte != null) {
+  } else if (input?.priceLte) {
     where.price = LessThanOrEqual(input.priceLte);
   }
 
-  if (
-    input.quantityAvailableGte != null &&
-    input.quantityAvailableLte != null
-  ) {
+  if (input?.quantityAvailableGte && input?.quantityAvailableLte) {
     where.quantityAvailable = Between(
       input.quantityAvailableGte,
       input.quantityAvailableLte
     );
-  } else if (input.quantityAvailableGte != null) {
+  } else if (input?.quantityAvailableGte) {
     where.quantityAvailable = MoreThanOrEqual(input.quantityAvailableGte);
-  } else if (input.quantityAvailableLte != null) {
+  } else if (input?.quantityAvailableLte) {
     where.quantityAvailable = LessThanOrEqual(input.quantityAvailableLte);
   }
 
-  if (input.expiryDateGte && input.expiryDateLte) {
+  if (input?.expiryDateGte && input?.expiryDateLte) {
     where.expiryDate = Between(input.expiryDateGte, input.expiryDateLte);
   } else if (input.expiryDateGte) {
     where.expiryDate = MoreThanOrEqual(input.expiryDateGte);

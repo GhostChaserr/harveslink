@@ -52,6 +52,7 @@ const SignInScreen: FC<SignInScreenProps> = ({ onRegister }) => {
               >
                 <Box mt={'md'}>
                   <UserInputText
+                    placeHolder='599000000'
                     text1="საკონტაქტო ტელეფონი:"
                     text2="ტელეფონის ნომერის ფორმატი 5XX XX XX XX"
                     key={phoneForm.key('phone')}
@@ -69,6 +70,7 @@ const SignInScreen: FC<SignInScreenProps> = ({ onRegister }) => {
               >
                 <Box mt={'md'}>
                   <UserInputText
+                   placeHolder='1231'
                     text1="ვერიფიკაციის კოდი: (შეამოწმე მობილური)"
                     text2="ვერიფიკაციის კოდი გაგზავნილია მობილურზე"
                     key={otpForm.key('code')}
