@@ -14,6 +14,8 @@ import { Category } from './category.entity';
 import { Unit } from './unit.entity';
 import { Reservation } from './reservation.entity';
 import { Branch } from './branch.entity';
+import GraphQLJSON from 'graphql-type-json';
+import { Gallery } from '../product/product.backoffice.service.interface';
 
 @ObjectType()
 @Entity('products')
@@ -91,9 +93,9 @@ export class Product {
   @Column({ nullable: true })
   address?: string;
 
-  @Field(() => [String])
-  @Column({ type: 'text', array: true, default: [] })
-  media: string[];
+  @Field(() => GraphQLJSON, { nullable: true })
+  @Column({ type: 'jsonb', nullable: true })
+  gallery: Gallery;
 
   @Field(() => String)
   @Column({

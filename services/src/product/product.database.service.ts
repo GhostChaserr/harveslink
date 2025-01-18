@@ -85,11 +85,22 @@ export class ProductDatabaseService {
     if (input.city) {
       product.city = input.city;
     }
-    product.media = [
-      this.defaultProductImage(),
-      this.defaultProductImage(),
-      this.defaultProductImage(),
-    ];
+    product.gallery = {
+      media: [
+        {
+          default: this.defaultProductImage(),
+          type: 'image',
+        },
+        {
+          default: this.defaultProductImage(),
+          type: 'image',
+        },
+        {
+          default: this.defaultProductImage(),
+          type: 'image',
+        },
+      ],
+    };
     product.price = input.price;
     product.account = input.account;
     product.quantityAvailable = input.quantityAvailable;

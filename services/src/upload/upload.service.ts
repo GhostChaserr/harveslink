@@ -26,7 +26,6 @@ export class UploadService {
         };
         medias.push(media);
       }
-
       return medias;
     } catch (error) {
       throw error;

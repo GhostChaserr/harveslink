@@ -1,5 +1,6 @@
 import { Field, Float, ObjectType } from '@nestjs/graphql';
 import { Product } from '../entities/product.entity';
+import { Media } from '../upload/upload.service.interface';
 
 @ObjectType()
 export class PaginationMeta {
@@ -22,4 +23,8 @@ export class PaginatedProducts {
 
   @Field(() => PaginationMeta)
   meta: PaginatedProducts;
+}
+
+export class Gallery {
+  media: Media[];
 }

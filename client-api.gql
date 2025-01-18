@@ -95,6 +95,19 @@ type Branch {
   updatedAt: DateTime
 }
 
+type PaginationMeta {
+  itemCount: Float!
+  totalItems: Float!
+  itemsPerPage: Float!
+  totalPages: Float!
+  currentPage: Float!
+}
+
+type PaginatedProducts {
+  items: [Product!]!
+  meta: PaginationMeta!
+}
+
 type Product {
   id: String!
   account: Account
@@ -111,7 +124,7 @@ type Product {
   country: String
   city: String
   address: String
-  media: [String!]!
+  gallery: JSON
   status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -145,19 +158,6 @@ enum AccountType {
   CONSUMER
   CHARITY
   ADMIN
-}
-
-type PaginationMeta {
-  itemCount: Float!
-  totalItems: Float!
-  itemsPerPage: Float!
-  totalPages: Float!
-  currentPage: Float!
-}
-
-type PaginatedProducts {
-  items: [Product!]!
-  meta: PaginationMeta!
 }
 
 type AuthPayload {
