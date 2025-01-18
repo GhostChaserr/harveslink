@@ -1,14 +1,19 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import {
   AccountProductService,
+  AuthGuard,
   CreateProductFilterInput,
   CreateProductInput,
   PaginatedProducts,
   Product,
   ProductBackOfficeService,
+  Session,
+  SessionD,
 } from 'services';
 
+@UseGuards(AuthGuard)
 @Resolver(() => Product)
 export class ProductResolver {
   constructor(
@@ -31,10 +36,10 @@ export class ProductResolver {
 
   @Mutation(() => Product, { name: 'addProduct' })
   async createProduct(
+    @SessionD() session: Session,
     @Args('input') input: CreateProductInput
   ): Promise<Product> {
-    const accountId = '23a91694-1291-4345-91c0-6d93b4c89d7c';
+    const accountId = session.id;
     return this.accountProductService.addProduct(input, accountId);
   }
-  
 }

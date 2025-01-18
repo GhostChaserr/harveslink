@@ -31,7 +31,7 @@ const options: DataSourceOptions & SeederOptions = {
   database: process.env.POSTGRES_DB,
   synchronize: false,
   logging: true,
-  entities: [Account, Product, Category, Unit, Reservation, Branch, Job],
+  entities: [Account, Product, Category, Unit, Reservation, Branch],
   seeds: [join(__dirname, '/**/seeds/*.{ts,js}')],
   factories: [join(__dirname, '/**/factories/*.{ts,js}')],
   migrations: [join(__dirname, '/**/migrations/*.{ts,js}')],

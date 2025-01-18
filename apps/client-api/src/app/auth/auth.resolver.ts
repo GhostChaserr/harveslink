@@ -9,6 +9,8 @@ import {
   AuthGuard,
   SessionD,
   Session,
+  CreateFarmerAccountInput,
+  AccountType,
 } from 'services';
 
 @Resolver()
@@ -29,6 +31,15 @@ export class AuthResolver {
     @Args('code') code: number
   ) {
     await this.validateOTP(input.phone, code);
+    return this.authService.signUp(input);
+  }
+
+  @Mutation(() => AuthPayload, { name: 'createFarmerAccount' })
+  async createFarmerAccount(@Args('input') input: CreateFarmerAccountInput){
+    input.accountType = AccountType.FARMER
+    input.ratingAverage = 0;
+    input.ratingAverage = 0;
+    await this.validateOTP(input.phone, input.otp);
     return this.authService.signUp(input);
   }
 

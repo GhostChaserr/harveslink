@@ -54,10 +54,6 @@ export class Product {
   price: number;
 
   @Field(() => String)
-  @Column({ default: 'GEO' })
-  country: string;
-
-  @Field(() => String)
   @Column({ default: 'GEL' })
   currency: string;
 
@@ -78,6 +74,18 @@ export class Product {
   @Field(() => Date)
   @Column({ type: 'timestamptz', nullable: true })
   startDate: Date;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  country?: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  city?: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  address?: string;
 
   @Field(() => [String])
   @Column({ type: 'text', array: true, default: [] })

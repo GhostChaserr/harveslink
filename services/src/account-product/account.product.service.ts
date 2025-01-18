@@ -47,6 +47,11 @@ export class AccountProductService {
   }
 
   async addProduct(input: CreateProductInput, accountId: string) {
+    console.log(
+      accountId,
+      input.categoryId,
+      input.unitId
+    )
     const { category, account, unit } = await this.readAccountCategoryUnit(
       accountId,
       input.categoryId,

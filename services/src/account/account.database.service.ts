@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { Account } from '../entities/account.entity';
 import { CreateAccountInput } from './account.database.service.interface';
+import { AccountType } from '../enums/entities.enums';
 
 @Injectable()
 export class AccountDatabaseService {
@@ -33,7 +34,7 @@ export class AccountDatabaseService {
     account.fullName = input.fullName;
     account.email = input.email;
     account.password = input.password;
-    account.accountType = input.accountType;
+    account.accountType = input.accountType || AccountType.CONSUMER;
     account.phone = input.phone;
     account.locationLat = input.locationLat;
     account.locationLon = input.locationLon;
@@ -41,12 +42,25 @@ export class AccountDatabaseService {
     account.reviewsCount = 0;
     account.createdAt = new Date();
     account.products = [];
+    account.avatar = 'avatar.webpg';
+    if (input.city) {
+      account.city = input.city;
+    }
+    if (input.address) {
+      account.address = input.address;
+    }
+    if (input.country) {
+      account.country = input.country;
+    }
+    if (input.languages) {
+      account.languages = input.languages;
+  }
     return account;
   }
 
   public async create(input: CreateAccountInput) {
     try {
-      const instance = this.createInstance(input);
+    const instance = this.createInstance(input);
       const record = await this.accountRepository.save(instance);
       this.logger.debug('record:', record);
       return record;

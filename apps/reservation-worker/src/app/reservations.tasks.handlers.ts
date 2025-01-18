@@ -7,10 +7,6 @@ import {
   ReservationsTasksService,
 } from 'services';
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 @Injectable()
 @Task(RESERVATION_TASKS.RESERVE_PRODUCT_TASK)
 export class ReservationsTasksHandler {

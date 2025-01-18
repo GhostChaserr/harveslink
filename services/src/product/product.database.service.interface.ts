@@ -25,8 +25,14 @@ export class CreateProductInput {
   @Field(() => Float)
   price: number;
 
-  @Field(() => String)
-  country: string;
+  @Field(() => String, { nullable: true })
+  country?: string;
+
+  @Field(() => String, { nullable: true })
+  city?: string;
+
+  @Field(() => String, { nullable: true })
+  address?: string;
 
   @Field(() => Float)
   quantityAvailable: number;
@@ -39,7 +45,7 @@ export class CreateProductInput {
 
   unit: Unit;
   account: Account;
-  branch?: Branch
+  branch?: Branch;
   category: Category;
 }
 

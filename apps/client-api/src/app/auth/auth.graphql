@@ -1,0 +1,24 @@
+mutation{
+  createFarmerAccount(input:{
+    fullName:"George",
+    otp:7289,
+    phone:"+995599020054"
+    country: "Georgia"
+    city: "Tbilisi"
+    address: "Gurjaani region village kalauri"
+    languages: ["ka","en"]
+  }){
+    accessToken
+  }
+}
+
+
+query{
+  session{
+    id
+    fullName
+    phone
+    profile
+    accountType
+  }
+}

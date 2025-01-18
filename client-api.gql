@@ -100,11 +100,13 @@ type Product {
   productName: String!
   description: String!
   price: Float!
-  country: String!
   currency: String!
   quantityAvailable: Float!
   expiryDate: DateTime!
   startDate: DateTime!
+  country: String
+  city: String
+  address: String
   media: [String!]!
   status: String!
   createdAt: DateTime!
@@ -115,10 +117,15 @@ type Product {
 type Account {
   id: String!
   fullName: String!
+  avatar: String!
+  country: String
+  city: String
+  address: String
+  languages: [String!]
   email: String!
   password: String!
   accountType: AccountType!
-  phone: String!
+  phone: String
   locationLat: Float
   locationLon: Float
   ratingAverage: Float!
@@ -156,9 +163,9 @@ type AuthPayload {
 
 type Session {
   fullName: String!
-  email: String!
+  email: String
   profile: String!
-  phone: String!
+  phone: String
   id: String!
   createdAt: DateTime!
   accountType: AccountType!
@@ -185,6 +192,8 @@ input CreateProductFilterInput {
   description: String
   price: Float
   country: String
+  city: String
+  address: String
   quantityAvailable: Float
   expiryDate: DateTime
   startDate: DateTime
@@ -205,6 +214,7 @@ type Mutation {
   createCategory(input: CreateCategoryInput!): Product!
   createUnit(input: CreateUnitInput!): Unit!
   signUp(input: CreateAccountInput!, code: Float!): AuthPayload!
+  createFarmerAccount(input: CreateFarmerAccountInput!): AuthPayload!
   checkAccount(phone: String!): Boolean!
   generateOtp(phone: String!): Boolean!
   signIn(phone: String!, code: Float!): AuthPayload!
@@ -231,7 +241,9 @@ input CreateProductInput {
   unitId: String!
   description: String!
   price: Float!
-  country: String!
+  country: String
+  city: String
+  address: String
   quantityAvailable: Float!
   expiryDate: DateTime!
   startDate: DateTime!
@@ -239,14 +251,19 @@ input CreateProductInput {
 
 input CreateAccountInput {
   fullName: String!
-  email: String!
-  password: String!
+  email: String
+  password: String
   accountType: AccountType! = CONSUMER
-  phone: String!
+  phone: String
   locationLat: Float
   locationLon: Float
   ratingAverage: Float! = 0
   reviewsCount: Int! = 0
+  otp: Float!
+  country: String
+  city: String
+  address: String
+  languages: [String!]
 }
 
 input CreateCategoryInput {
@@ -255,4 +272,21 @@ input CreateCategoryInput {
 
 input CreateUnitInput {
   name: UnitEnum!
+}
+
+input CreateFarmerAccountInput {
+  fullName: String!
+  email: String
+  password: String
+  accountType: AccountType = CONSUMER
+  phone: String!
+  locationLat: Float
+  locationLon: Float
+  ratingAverage: Float = 0
+  reviewsCount: Int = 0
+  otp: Float!
+  country: String!
+  city: String!
+  address: String!
+  languages: [String!]!
 }

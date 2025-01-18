@@ -89,8 +89,11 @@ export class AuthService {
       throw new BadRequestException('ACCOUNT EXISTS');
     }
 
-    const hash = await bcrypt.hash(input.password, 10);
-    input.password = hash;
+    if (input.password) {
+      const hash = await bcrypt.hash(input.password, 10);
+      input.password = hash;
+    }
+
     account = await this.accountDatabaseService.create(input);
 
     try {

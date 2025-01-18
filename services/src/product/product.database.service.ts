@@ -68,7 +68,6 @@ export class ProductDatabaseService {
     const product = this.productRepository.create();
     product.productName = input.productName;
     product.unit = input.unit;
-    product.country = input.country;
     product.startDate = input.startDate;
     product.createdAt = new Date();
     product.category = input.category;
@@ -76,6 +75,15 @@ export class ProductDatabaseService {
     product.expiryDate = input.expiryDate;
     if (input.branch) {
       product.branch = input.branch;
+    }
+    if (input.country) {
+      product.country = input.country;
+    }
+    if (input.address) {
+      product.address = input.address;
+    }
+    if (input.city) {
+      product.city = input.city;
     }
     product.media = [
       this.defaultProductImage(),
