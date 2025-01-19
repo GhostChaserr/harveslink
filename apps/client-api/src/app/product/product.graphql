@@ -1,13 +1,14 @@
 mutation {
-  addProduct(input: {
+  createProduct(input: {
     productName: "შავი საფერავი",
-    category: "Fruits",
+    categoryId:"2eee53ba-3287-4ee0-b4a3-b5328f9527ed",
     description: "დარჩენილი შავი საფერი. არის ახალი მოკრეფილი",
     price: 1.23,
     country: "GEO",
-    unit: "kg",
+    unitId:"d17ac1fa-fa88-4d3a-bfec-72c92ca19dfd"
     quantityAvailable: 300,
-    expiryDate: "2025-12-31T00:00:00.000Z"
+    expiryDate: "2025-12-31T00:00:00.000Z",
+    startDate:"2025-12-31T00:00:00.000Z"
   }){
     id
     expiryDate

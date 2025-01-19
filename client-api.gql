@@ -108,6 +108,28 @@ type PaginatedProducts {
   meta: PaginationMeta!
 }
 
+type Auction {
+  id: String!
+  product: Product!
+  account: Account!
+  startDate: DateTime!
+  endDate: DateTime!
+  minBid: Float!
+  currentBid: Float
+  status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  bids: [Bid!]
+}
+
+type Bid {
+  id: String!
+  auction: Auction
+  account: Account
+  amount: Float!
+  createdAt: DateTime!
+}
+
 type Product {
   id: String!
   account: Account
@@ -129,6 +151,7 @@ type Product {
   createdAt: DateTime!
   updatedAt: DateTime!
   reservations: [Reservation!]
+  auction: Auction
 }
 
 type Account {
@@ -211,9 +234,10 @@ input CreateProductFilterInput {
 }
 
 type Mutation {
+  createAuction(input: CreateAuctionInput!): Auction!
   createBranch(input: CreateBranchInput!): Branch!
   createProductReservationRequest(input: InputCreateProductsReservaton!): String!
-  addProduct(input: CreateProductInput!): Product!
+  createProduct(input: CreateProductInput!): Product!
   createAccount(input: CreateAccountInput!): Account!
   createCategory(input: CreateCategoryInput!): Product!
   createUnit(input: CreateUnitInput!): Unit!
@@ -222,6 +246,23 @@ type Mutation {
   checkAccount(phone: String!): Boolean!
   generateOtp(phone: String!): Boolean!
   signIn(phone: String!, code: Float!): AuthPayload!
+}
+
+input CreateAuctionInput {
+  productId: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  minBid: Float!
+  status: AuctionStatusEnum!
+}
+
+"""Different types of auction types"""
+enum AuctionStatusEnum {
+  PENDING
+  STARTED
+  CLOSED
+  BIDDING
+  TIMEOUT
 }
 
 input CreateBranchInput {

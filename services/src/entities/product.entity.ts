@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
+  OneToOne,
 } from 'typeorm';
 import { ObjectType, Field, Float } from '@nestjs/graphql';
 import { ListingStatus } from '../enums/entities.enums';
@@ -16,6 +17,7 @@ import { Reservation } from './reservation.entity';
 import { Branch } from './branch.entity';
 import GraphQLJSON from 'graphql-type-json';
 import { Gallery } from '../product/product.backoffice.service.interface';
+import { Auction } from './auction.entity';
 
 @ObjectType()
 @Entity('products')
@@ -23,14 +25,14 @@ export class Product {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  
+
   @Field(() => Account, { nullable: true })
   @ManyToOne(() => Account, (account) => account.products, {
     onDelete: 'CASCADE',
     eager: true, // automatically load farmer data if needed
   })
   account: Account;
-  
+
   @Field(() => Branch, { nullable: true })
   @ManyToOne(() => Branch, (branch) => branch.products, {
     nullable: true,
@@ -116,4 +118,10 @@ export class Product {
   @Field(() => [Reservation], { nullable: true })
   @ManyToMany(() => Reservation, (reservation) => reservation.products)
   reservations: Reservation[];
+
+  @Field(() => Auction, { nullable: true })
+  @OneToOne(() => Auction, (auction) => auction.product, {
+    nullable: true,
+  })
+  auction?: Auction;
 }

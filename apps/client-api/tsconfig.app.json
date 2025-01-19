@@ -11,7 +11,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "../auction-worker/src/app/auction.task.processor.ts"  ],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",

@@ -18,7 +18,7 @@ import {
 export class ProductResolver {
   constructor(
     private readonly accountProductService: AccountProductService,
-    private readonly productBackOfficeService: ProductBackOfficeService
+    private readonly productBackOfficeService: ProductBackOfficeService,
   ) {}
 
   @Query(() => PaginatedProducts)
@@ -37,7 +37,7 @@ export class ProductResolver {
     );
   }
 
-  @Mutation(() => Product, { name: 'addProduct' })
+  @Mutation(() => Product, { name: 'createProduct' })
   async createProduct(
     @SessionD() session: Session,
     @Args('input') input: CreateProductInput

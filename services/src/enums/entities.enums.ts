@@ -68,20 +68,32 @@ export enum UnitEnum {
   CRATE = 'crate',
   BOX = 'box',
   BAG = 'bag',
-  BUNCH = 'bunch',   // e.g. for herbs, leafy greens, grapes
-  DOZEN = 'dozen',   // e.g. eggs
-  UNIT = 'unit',     // e.g. single count items (like individual melons)
-  PACK = 'pack',     // e.g. packaged goods
+  BUNCH = 'bunch', // e.g. for herbs, leafy greens, grapes
+  DOZEN = 'dozen', // e.g. eggs
+  UNIT = 'unit', // e.g. single count items (like individual melons)
+  PACK = 'pack', // e.g. packaged goods
   TRAY = 'tray',
   OTHER = 'other',
 }
 
 export enum ReservationStatusEnum {
-  PENDING='PENDING',
-  ACCEPTED='ACCEPTED',
-  REJECTED='REJECTED'
+  PENDING = 'PENDING',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
 }
 
+export enum AuctionStatus {
+  PENDING = 'PENDING',
+  STARTED = 'STARTED',
+  CLOSED = 'CLOSED',
+  BIDDING = 'BIDDING',
+  TIMEOUT = 'TIMEOUT',
+}
+
+registerEnumType(AuctionStatus, {
+  name: 'AuctionStatusEnum', // GraphQL type name
+  description: 'Different types of auction types', // optional description
+});
 
 registerEnumType(ReservationStatusEnum, {
   name: 'ReservationStatusEnum', // GraphQL type name

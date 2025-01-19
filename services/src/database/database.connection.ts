@@ -8,6 +8,7 @@ import { Unit } from '../entities/unit.entity';
 import { Reservation } from '../entities/reservation.entity';
 import { Branch } from '../entities/branch.entity';
 import { Job } from '../entities/job.entity';
+import { Auction, Bid } from '../entities/auction.entity';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { Job } from '../entities/job.entity';
           username,
           password,
           database,
-          entities: [Account, Product, Category, Unit, Reservation, Branch, Job],
+          entities: [Account, Product, Category, Unit, Reservation, Branch, Job, Bid, Auction],
           synchronize: false,
           dropSchema: false,
         };

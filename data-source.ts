@@ -9,7 +9,7 @@ import { Category } from './services/src/entities/category.entity';
 import { Unit } from './services/src/entities/unit.entity';
 import { Reservation } from './services/src/entities/reservation.entity'
 import { Branch } from './services/src/entities/branch.entity'
-import { Job } from './services/src/entities/job.entity';
+import { Auction, Bid } from './services/src/entities/auction.entity';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -31,7 +31,7 @@ const options: DataSourceOptions & SeederOptions = {
   database: process.env.POSTGRES_DB,
   synchronize: false,
   logging: true,
-  entities: [Account, Product, Category, Unit, Reservation, Branch],
+  entities: [Account, Product, Category, Unit, Reservation, Branch, Auction, Bid],
   seeds: [join(__dirname, '/**/seeds/*.{ts,js}')],
   factories: [join(__dirname, '/**/factories/*.{ts,js}')],
   migrations: [join(__dirname, '/**/migrations/*.{ts,js}')],

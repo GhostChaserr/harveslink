@@ -1,0 +1,21 @@
+mutation {
+  createAuction(
+    input: {
+      productId: "3290bdc1-e192-4931-a8d5-8826e72c2e3c"
+      startDate: "2025-01-19T13:00:00.000Z"
+      endDate: "2025-01-19T15:00:00.000Z"
+      minBid: 100.0
+      status: PENDING
+    }
+  ){
+    id
+    startDate
+    endDate
+    currentBid
+    status
+    createdAt
+    startDate
+    endDate
+
+  }
+}

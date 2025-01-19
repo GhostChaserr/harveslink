@@ -14,6 +14,8 @@ import {
   UnitModule,
   AuthModule,
   UploadModule,
+  AuctionProductModule,
+  AuctionModule,
 } from 'services';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductResolver } from './product/product.resolver';
@@ -23,10 +25,12 @@ import { UnitResolver } from './unit/unit.resolver';
 import { ReservationsResolver } from './reservations/reservations.resolver';
 import { GraphileWorkerModule } from 'nestjs-graphile-worker';
 import { BranchResolver } from './branch/branch.resolver';
-import { OtpTaskHandler } from './tasks/otp.tasks.handlers';
+
 import { AuthResolver } from './auth/auth.resolver';
-import { NestjsFormDataModule } from 'nestjs-form-data'
+import { NestjsFormDataModule } from 'nestjs-form-data';
 import { ProductController } from './product/product.controller';
+import { AuctionResolver } from './auction/auction.resolver';
+import { ScheduleAuctionTaskHandler } from './tasks/auction.tasks.handlers';
 
 @Module({
   imports: [
@@ -38,6 +42,8 @@ import { ProductController } from './product/product.controller';
     NestjsFormDataModule,
     CategoryModule,
     UnitModule,
+    AuctionModule,
+    AuctionProductModule,
     UploadModule,
     BranchModule,
     GraphileWorkerModule.forRootAsync({
@@ -66,14 +72,15 @@ import { ProductController } from './product/product.controller';
   ],
   controllers: [ProductController],
   providers: [
+    AuctionResolver,
     BranchResolver,
-    OtpTaskHandler,
     ReservationsResolver,
     ProductResolver,
     AccountResolver,
     CategoryResolver,
     UnitResolver,
     AuthResolver,
+    ScheduleAuctionTaskHandler,
   ],
 })
 export class AppModule {}
