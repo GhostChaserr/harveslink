@@ -18,7 +18,7 @@ export class UnitDatabaseService {
     private readonly unitRepository: Repository<Unit>
   ) {}
 
-  public async readCategories(options: FindManyOptions<Unit>): Promise<Unit[]> {
+  public async readUnits(options: FindManyOptions<Unit>): Promise<Unit[]> {
     const units = await this.unitRepository.find(options);
     this.logger.debug('units:', units);
     return units;

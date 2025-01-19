@@ -13,6 +13,13 @@ query GetBranches {
   }
 }
 
+query GetUnits {
+  units {
+    id
+    name
+  }
+}
+
 mutation SignIn($phone: String!, $code: Float!) {
   signIn(phone: $phone, code: $code) {
     accessToken
@@ -73,8 +80,8 @@ mutation CreateAccount($input: CreateAccountInput!) {
   }
 }
 
-mutation AddProduct($input: CreateProductInput!) {
-  addProduct(input: $input) {
+mutation createProduct($input: CreateProductInput!) {
+  createProduct(input: $input) {
     id
     productName
     description
@@ -86,7 +93,6 @@ mutation AddProduct($input: CreateProductInput!) {
     country
     city
     address
-    media
     status
     createdAt
     updatedAt
@@ -98,7 +104,9 @@ mutation AddProduct($input: CreateProductInput!) {
   }
 }
 
-mutation CreateProductReservationRequest($input: InputCreateProductsReservaton!) {
+mutation CreateProductReservationRequest(
+  $input: InputCreateProductsReservaton!
+) {
   createProductReservationRequest(input: $input)
 }
 
@@ -138,8 +146,11 @@ query GetCategories {
   }
 }
 
-
-query GetProducts($page: Float!, $limit: Float!, $filter: CreateProductFilterInput) {
+query GetProducts(
+  $page: Float!
+  $limit: Float!
+  $filter: CreateProductFilterInput
+) {
   products(page: $page, limit: $limit, filter: $filter) {
     items {
       id
@@ -153,7 +164,6 @@ query GetProducts($page: Float!, $limit: Float!, $filter: CreateProductFilterInp
       country
       city
       address
-      media
       status
       createdAt
       updatedAt

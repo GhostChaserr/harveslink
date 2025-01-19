@@ -8,6 +8,7 @@ import {
   Tooltip,
   UnstyledButton,
   rem,
+  useMantineTheme,
 } from '@mantine/core';
 import { MantineLogo } from '@mantinex/mantine-logo';
 
@@ -32,6 +33,7 @@ import { useApolloClient } from '@apollo/client';
 import { useNavigate } from 'react-router';
 import { useGetSessionQuery } from '@harveslink/generated';
 import { User } from 'design';
+import { CUSTOM_EVENTS } from '../../utils/event.utils';
 
 interface NavbarLinkProps {
   icon: typeof IconHome2;
@@ -92,6 +94,7 @@ function NavbarLink({ icon: Icon, label, path }: NavbarLinkProps) {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const theme = useMantineTheme()
   const navigate = useNavigate();
   const clinet = useApolloClient();
   const { data } = useGetSessionQuery();
@@ -169,9 +172,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             </UnstyledButton>
             <UnstyledButton
               className={classes.button}
-              bg={'yellow'}
+              bg={theme.colors.primary[6]}
               p={'xs'}
-              onClick={() => console.log('add')}
+              onClick={() => {
+                const event = new Event(CUSTOM_EVENTS.OPEN_ADD_PRODUCT_DRAWER);
+                window.dispatchEvent(event);
+              }}
             >
               <IconCirclePlus size={26} stroke={1.5} />
             </UnstyledButton>

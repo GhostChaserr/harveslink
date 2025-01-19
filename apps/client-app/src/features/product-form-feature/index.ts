@@ -1,0 +1,1 @@
+export { default as ProductFormFeature } from './ProductFormFeature'

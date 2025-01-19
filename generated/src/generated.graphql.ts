@@ -55,10 +55,43 @@ export enum AccountType {
   Restaurant = 'RESTAURANT',
 }
 
+export type Auction = {
+  __typename?: 'Auction';
+  account: Account;
+  bids?: Maybe<Array<Bid>>;
+  createdAt: Scalars['DateTime'];
+  currentBid?: Maybe<Scalars['Float']>;
+  endDate: Scalars['DateTime'];
+  id: Scalars['String'];
+  minBid: Scalars['Float'];
+  product: Product;
+  startDate: Scalars['DateTime'];
+  status: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+/** Different types of auction types */
+export enum AuctionStatusEnum {
+  Bidding = 'BIDDING',
+  Closed = 'CLOSED',
+  Pending = 'PENDING',
+  Started = 'STARTED',
+  Timeout = 'TIMEOUT',
+}
+
 export type AuthPayload = {
   __typename?: 'AuthPayload';
   accessToken: Scalars['String'];
   accountType: Scalars['String'];
+};
+
+export type Bid = {
+  __typename?: 'Bid';
+  account?: Maybe<Account>;
+  amount: Scalars['Float'];
+  auction?: Maybe<Auction>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['String'];
 };
 
 export type Branch = {
@@ -117,6 +150,14 @@ export type CreateAccountInput = {
   phone?: InputMaybe<Scalars['String']>;
   ratingAverage?: Scalars['Float'];
   reviewsCount?: Scalars['Int'];
+};
+
+export type CreateAuctionInput = {
+  endDate: Scalars['DateTime'];
+  minBid: Scalars['Float'];
+  productId: Scalars['String'];
+  startDate: Scalars['DateTime'];
+  status: AuctionStatusEnum;
 };
 
 export type CreateBranchInput = {
@@ -197,21 +238,18 @@ export type InputCreateProductsReservaton = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addProduct: Product;
   checkAccount: Scalars['Boolean'];
   createAccount: Account;
+  createAuction: Auction;
   createBranch: Branch;
   createCategory: Product;
   createFarmerAccount: AuthPayload;
+  createProduct: Product;
   createProductReservationRequest: Scalars['String'];
   createUnit: Unit;
   generateOtp: Scalars['Boolean'];
   signIn: AuthPayload;
   signUp: AuthPayload;
-};
-
-export type MutationAddProductArgs = {
-  input: CreateProductInput;
 };
 
 export type MutationCheckAccountArgs = {
@@ -220,6 +258,10 @@ export type MutationCheckAccountArgs = {
 
 export type MutationCreateAccountArgs = {
   input: CreateAccountInput;
+};
+
+export type MutationCreateAuctionArgs = {
+  input: CreateAuctionInput;
 };
 
 export type MutationCreateBranchArgs = {
@@ -232,6 +274,10 @@ export type MutationCreateCategoryArgs = {
 
 export type MutationCreateFarmerAccountArgs = {
   input: CreateFarmerAccountInput;
+};
+
+export type MutationCreateProductArgs = {
+  input: CreateProductInput;
 };
 
 export type MutationCreateProductReservationRequestArgs = {
@@ -273,21 +319,26 @@ export type PaginationMeta = {
 
 export type Product = {
   __typename?: 'Product';
+  account?: Maybe<Account>;
   address?: Maybe<Scalars['String']>;
+  auction?: Maybe<Auction>;
+  branch?: Maybe<Branch>;
+  category?: Maybe<Category>;
   city?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   currency: Scalars['String'];
   description: Scalars['String'];
   expiryDate: Scalars['DateTime'];
+  gallery?: Maybe<Scalars['JSON']>;
   id: Scalars['String'];
-  media: Array<Scalars['String']>;
   price: Scalars['Float'];
   productName: Scalars['String'];
   quantityAvailable: Scalars['Float'];
-  reservations: Array<Reservation>;
+  reservations?: Maybe<Array<Reservation>>;
   startDate: Scalars['DateTime'];
   status: Scalars['String'];
+  unit?: Maybe<Unit>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -303,6 +354,7 @@ export type Query = {
   products: PaginatedProducts;
   reservations: Array<Reservation>;
   session: Session;
+  units: Array<Unit>;
 };
 
 export type QueryProductsArgs = {
@@ -389,6 +441,13 @@ export type GetBranchesQuery = {
     createdAt?: any | null;
     updatedAt?: any | null;
   }>;
+};
+
+export type GetUnitsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetUnitsQuery = {
+  __typename?: 'Query';
+  units: Array<{ __typename?: 'Unit'; id: string; name: UnitEnum }>;
 };
 
 export type SignInMutationVariables = Exact<{
@@ -499,13 +558,13 @@ export type CreateAccountMutation = {
   };
 };
 
-export type AddProductMutationVariables = Exact<{
+export type CreateProductMutationVariables = Exact<{
   input: CreateProductInput;
 }>;
 
-export type AddProductMutation = {
+export type CreateProductMutation = {
   __typename?: 'Mutation';
-  addProduct: {
+  createProduct: {
     __typename?: 'Product';
     id: string;
     productName: string;
@@ -518,16 +577,15 @@ export type AddProductMutation = {
     country?: string | null;
     city?: string | null;
     address?: string | null;
-    media: Array<string>;
     status: string;
     createdAt: any;
     updatedAt: any;
-    reservations: Array<{
+    reservations?: Array<{
       __typename?: 'Reservation';
       id: string;
       code: string;
       status: ReservationStatusEnum;
-    }>;
+    }> | null;
   };
 };
 
@@ -613,15 +671,14 @@ export type GetProductsQuery = {
       country?: string | null;
       city?: string | null;
       address?: string | null;
-      media: Array<string>;
       status: string;
       createdAt: any;
       updatedAt: any;
-      reservations: Array<{
+      reservations?: Array<{
         __typename?: 'Reservation';
         id: string;
         status: ReservationStatusEnum;
-      }>;
+      }> | null;
     }>;
     meta: {
       __typename?: 'PaginationMeta';
@@ -727,6 +784,59 @@ export type GetBranchesLazyQueryHookResult = ReturnType<
 export type GetBranchesQueryResult = Apollo.QueryResult<
   GetBranchesQuery,
   GetBranchesQueryVariables
+>;
+export const GetUnitsDocument = gql`
+  query GetUnits {
+    units {
+      id
+      name
+    }
+  }
+`;
+
+/**
+ * __useGetUnitsQuery__
+ *
+ * To run a query within a React component, call `useGetUnitsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUnitsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUnitsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUnitsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetUnitsQuery, GetUnitsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetUnitsQuery, GetUnitsQueryVariables>(
+    GetUnitsDocument,
+    options
+  );
+}
+export function useGetUnitsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUnitsQuery,
+    GetUnitsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetUnitsQuery, GetUnitsQueryVariables>(
+    GetUnitsDocument,
+    options
+  );
+}
+export type GetUnitsQueryHookResult = ReturnType<typeof useGetUnitsQuery>;
+export type GetUnitsLazyQueryHookResult = ReturnType<
+  typeof useGetUnitsLazyQuery
+>;
+export type GetUnitsQueryResult = Apollo.QueryResult<
+  GetUnitsQuery,
+  GetUnitsQueryVariables
 >;
 export const SignInDocument = gql`
   mutation SignIn($phone: String!, $code: Float!) {
@@ -1136,9 +1246,9 @@ export type CreateAccountMutationOptions = Apollo.BaseMutationOptions<
   CreateAccountMutation,
   CreateAccountMutationVariables
 >;
-export const AddProductDocument = gql`
-  mutation AddProduct($input: CreateProductInput!) {
-    addProduct(input: $input) {
+export const CreateProductDocument = gql`
+  mutation createProduct($input: CreateProductInput!) {
+    createProduct(input: $input) {
       id
       productName
       description
@@ -1150,7 +1260,6 @@ export const AddProductDocument = gql`
       country
       city
       address
-      media
       status
       createdAt
       updatedAt
@@ -1162,48 +1271,48 @@ export const AddProductDocument = gql`
     }
   }
 `;
-export type AddProductMutationFn = Apollo.MutationFunction<
-  AddProductMutation,
-  AddProductMutationVariables
+export type CreateProductMutationFn = Apollo.MutationFunction<
+  CreateProductMutation,
+  CreateProductMutationVariables
 >;
 
 /**
- * __useAddProductMutation__
+ * __useCreateProductMutation__
  *
- * To run a mutation, you first call `useAddProductMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddProductMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateProductMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProductMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addProductMutation, { data, loading, error }] = useAddProductMutation({
+ * const [createProductMutation, { data, loading, error }] = useCreateProductMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useAddProductMutation(
+export function useCreateProductMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    AddProductMutation,
-    AddProductMutationVariables
+    CreateProductMutation,
+    CreateProductMutationVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<AddProductMutation, AddProductMutationVariables>(
-    AddProductDocument,
-    options
-  );
+  return Apollo.useMutation<
+    CreateProductMutation,
+    CreateProductMutationVariables
+  >(CreateProductDocument, options);
 }
-export type AddProductMutationHookResult = ReturnType<
-  typeof useAddProductMutation
+export type CreateProductMutationHookResult = ReturnType<
+  typeof useCreateProductMutation
 >;
-export type AddProductMutationResult =
-  Apollo.MutationResult<AddProductMutation>;
-export type AddProductMutationOptions = Apollo.BaseMutationOptions<
-  AddProductMutation,
-  AddProductMutationVariables
+export type CreateProductMutationResult =
+  Apollo.MutationResult<CreateProductMutation>;
+export type CreateProductMutationOptions = Apollo.BaseMutationOptions<
+  CreateProductMutation,
+  CreateProductMutationVariables
 >;
 export const CreateProductReservationRequestDocument = gql`
   mutation CreateProductReservationRequest(
@@ -1455,7 +1564,6 @@ export const GetProductsDocument = gql`
         country
         city
         address
-        media
         status
         createdAt
         updatedAt

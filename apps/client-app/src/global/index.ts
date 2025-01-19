@@ -1,0 +1,1 @@
+export { default as AddProductDrawer } from './add-product-drawer/AddProductDrawer'

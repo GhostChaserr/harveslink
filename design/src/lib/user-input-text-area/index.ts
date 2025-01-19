@@ -1,0 +1,1 @@
+export { default as UserInputTextArea } from './user-input-text-area'

@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import { Flex, Select, Text, useMantineTheme } from '@mantine/core';
 
 type UserInputTextProps = {
-  leftSectionIcon: ReactNode;
+  leftSectionIcon?: ReactNode;
   text1: string;
   text2: string;
   text3?: string;
