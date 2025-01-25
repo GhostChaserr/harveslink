@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start:client:app": "nx run client-app:serve",
+    "start:client:store": "nx run client-store:serve",
     "build:client:app": "nx run client-app:build:production",
     "start:client:api": "nx run client-api:serve",
     "start:reservation:worker": "nx run reservation-worker:serve",
@@ -115,6 +116,7 @@
     "@types/node": "~18.16.20",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
+    "@vitejs/plugin-react": "^4.2.0",
     "@vitejs/plugin-react-swc": "^3.7.2",
     "@vitest/ui": "^1.6.0",
     "babel-jest": "^29.7.0",

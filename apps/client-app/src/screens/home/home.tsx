@@ -1,5 +1,13 @@
+import { Box, Text } from "@mantine/core";
+
 const HomeScreen = () => {
-  return <div>Home Page</div>;
+  return (
+    <Box>
+      <Text>
+        ბოლოს დამატებულები
+      </Text>
+    </Box>
+  )
 };
 
 export default HomeScreen;

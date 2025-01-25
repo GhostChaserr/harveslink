@@ -1,0 +1,9 @@
+{
+  "name": "client-store",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/client-store/src",
+  "projectType": "application",
+  "tags": ["client-store"],
+  "// targets": "to see all targets run: nx show project client-store --web",
+  "targets": {}
+}
