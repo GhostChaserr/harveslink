@@ -1,1 +1,1 @@
-export { default as AddProductDrawer } from './AddProductDrawer'
+export { default as AddProductDrawer } from './add-product-drawer'

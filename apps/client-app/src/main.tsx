@@ -9,7 +9,7 @@ import { AppTheme } from 'design';
 import client from './services/apollo.service';
 import { ApolloProvider } from '@apollo/client/react/context/ApolloProvider';
 import App from './app';
-import { AddProductDrawer } from './global';
+import { AddProductDrawer, ViewProductDrawer } from './global';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,6 +24,7 @@ root.render(
         })}
       >
         <AddProductDrawer />
+        <ViewProductDrawer />
         <App />
       </MantineProvider>
     </ApolloProvider>

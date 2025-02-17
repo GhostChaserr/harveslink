@@ -1,15 +1,12 @@
-
 import { Box } from '@mantine/core';
-
+import { ProductsFeedFeature } from '../../features';
 
 const StoreScreen = () => {
-    return (
-      <Box>
-        <div>
-          Store
-        </div>
-      </Box>
-    )
+  return (
+    <Box>
+      <ProductsFeedFeature />
+    </Box>
+  );
 };
 
 export default StoreScreen;

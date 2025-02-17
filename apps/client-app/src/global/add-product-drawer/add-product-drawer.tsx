@@ -1,6 +1,6 @@
-import { Button, Drawer, Flex } from '@mantine/core';
+import { Drawer, Flex } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconPlus, IconXboxX } from '@tabler/icons-react';
+import { IconXboxX } from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { Suspense, lazy } from 'react';
 import { CUSTOM_EVENTS } from '../../utils/event.utils';
@@ -39,9 +39,6 @@ const StoreAddProduct = () => {
 
   return (
     <Flex justify={'end'}>
-      <Button onClick={open} leftSection={<IconPlus />}>
-        პროდუქტის დამატება
-      </Button>
       <Drawer
         closeButtonProps={{
           icon: <IconXboxX size={20} stroke={1.5} />,
